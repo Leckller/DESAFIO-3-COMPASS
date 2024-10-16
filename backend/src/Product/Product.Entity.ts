@@ -1,6 +1,6 @@
 import CategoryEntity from "src/Category/Category.Entity";
 import ColorEntity from "src/Color/Color.Entity";
-import ImageEntity from "src/Image/Image.Entity";
+import ImagesEntity from "src/Image/Images.Entity";
 import ReviewEntity from "src/Review/Review.Entity";
 import SizeEntity from "src/Size/Size.Entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
@@ -48,8 +48,8 @@ export default class ProductEntity {
     @ManyToOne(() => CategoryEntity, (categoryEntity) => categoryEntity.products)
     category: CategoryEntity;
 
-    @OneToMany(() => ImageEntity, (imageEntity) => imageEntity.product)
-    images: ImageEntity[];
+    @OneToMany(() => ImagesEntity, (imagesEntity) => imagesEntity.product)
+    images: ImagesEntity[];
 
     @OneToMany(() => ReviewEntity, (reviewEntity) => reviewEntity.product)
     reviews: ReviewEntity[];

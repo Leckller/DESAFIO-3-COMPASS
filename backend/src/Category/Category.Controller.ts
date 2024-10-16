@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
 import CategoryService from "./Category.Service";
 import AddCategoryRequestDto from "./Dtos/AddCategory.Request.Dto";
 
@@ -23,7 +23,7 @@ export default class CategoryController {
 
     }
 
-    @Get(':name')
+    @Get('type/:name')
     public async getCategoryByName(@Param('name') name: string) {
 
         return await this.categoryService.getCategoryByName(name);
@@ -36,6 +36,5 @@ export default class CategoryController {
         return await this.categoryService.addCategory({ imageId, name });
 
     }
-
 
 }

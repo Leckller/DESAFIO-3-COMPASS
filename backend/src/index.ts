@@ -4,6 +4,7 @@ import ColorEntity from "./Color/Color.Entity";
 import ColorModule from "./Color/Color.Module";
 import ImageEntity from "./Image/Image.Entity";
 import ImageModule from "./Image/Image.Module";
+import ImagesEntity from "./Image/Images.Entity";
 import ItemEntity from "./Item/Item.Entity";
 import ItemModule from "./Item/Item.Module";
 import LikeEntity from "./Like/Like.Entity";
@@ -27,5 +28,6 @@ export const Modules = [
 export const Entities = [
     CategoryEntity, ColorEntity, ImageEntity,
     ItemEntity, LikeEntity, ProductEntity,
-    ReviewEntity, SizeEntity, UserEntity
+    ReviewEntity, SizeEntity, UserEntity,
+    ImagesEntity
 ]
