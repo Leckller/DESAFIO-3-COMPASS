@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import CategoryEntity from "./Category.Entity";
 import { Repository } from "typeorm";
@@ -57,6 +57,22 @@ export default class CategoryService {
         if (!image) {
 
             throw new NotFoundException("Imagem não encontrada.")
+
+        }
+
+        const categoryExists = await this.categoryRepository.findOne({ where: { name } })
+
+        if (categoryExists) {
+
+            throw new BadRequestException('Essa categoria já existe!');
+
+        }
+
+        const imageCategoryInUse = await this.categoryRepository.findOne({ where: { image: { id: imageId } } });
+
+        if (imageCategoryInUse) {
+
+            throw new BadRequestException("Essa imagem já está em uso por outra categoria.")
 
         }
 

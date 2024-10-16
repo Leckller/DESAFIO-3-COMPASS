@@ -22,7 +22,16 @@ export default class ProductService {
         try {
 
             const pages = await this.productRepository
-                .find({ skip: page * 10, take: 8 });
+                .find({
+                    skip: page * 10, take: 8,
+                    relations: {
+                        category: true,
+                        images: true,
+                        reviews: true,
+                        sizes: true,
+                        colors: true,
+                    }
+                });
 
             return pages;
 

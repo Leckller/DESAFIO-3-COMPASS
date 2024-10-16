@@ -4,6 +4,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import ImageEntity from "./Image.Entity";
 import ImageService from "./Image.Service";
 import ImagesEntity from "./Images.Entity";
+import ProductEntity from "src/Product/Product.Entity";
 
 @Module({
 
@@ -12,7 +13,8 @@ import ImagesEntity from "./Images.Entity";
     imports: [
         TypeOrmModule.forFeature([
             ImageEntity,
-            ImagesEntity
+            ImagesEntity,
+            ProductEntity
         ])
     ]
 

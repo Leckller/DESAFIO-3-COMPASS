@@ -1,5 +1,5 @@
 import ProductEntity from "src/Product/Product.Entity";
-import { CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import ImageEntity from "./Image.Entity";
 
 @Entity()
@@ -11,8 +11,9 @@ export default class ImagesEntity {
     @ManyToOne(() => ProductEntity, (productEntity) => productEntity.images)
     product: ProductEntity;
 
-    @OneToMany(() => ImageEntity, (imageEntity) => imageEntity.id)
-    images: ImageEntity[];
+    @OneToOne(() => ImageEntity)
+    @JoinColumn()
+    image: ImageEntity;
 
     @CreateDateColumn()
     create_date: Date;
