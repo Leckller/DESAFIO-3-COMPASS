@@ -1,3 +1,4 @@
+import CategoryEntity from "src/Category/Category.Entity";
 import ProductEntity from "src/Product/Product.Entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -6,16 +7,14 @@ export default class ImageEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
-    
-    @Column({
-        default: false
-    })
-    isCategory: boolean;
 
     @Column({
         nullable: false
     })
     imageLink: string;
+
+    @ManyToOne(() => ProductEntity, (productEntity) => productEntity)
+    product: ProductEntity;
 
     @CreateDateColumn()
     create_date: Date;

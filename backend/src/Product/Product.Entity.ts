@@ -8,7 +8,7 @@ import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGenerate
 @Entity()
 export default class ProductEntity {
 
-    @PrimaryGeneratedColumn({unsigned: true})
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column({
@@ -45,25 +45,25 @@ export default class ProductEntity {
     })
     discount_percent: number;
 
+    @ManyToOne(() => CategoryEntity, (categoryEntity) => categoryEntity.products)
+    category: CategoryEntity;
+
+    @OneToMany(() => ImageEntity, (imageEntity) => imageEntity.product)
+    images: ImageEntity[];
+
+    @OneToMany(() => ReviewEntity, (reviewEntity) => reviewEntity.product)
+    reviews: ReviewEntity[];
+
+    @OneToMany(() => SizeEntity, (sizeEntity) => sizeEntity.product)
+    sizes: SizeEntity[];
+
+    @OneToMany(() => ColorEntity, (colorEntity) => colorEntity.product)
+    colors: ColorEntity[];
+
     @CreateDateColumn()
     create_date: Date;
 
     @UpdateDateColumn()
     update_date: Date;
-
-    @ManyToOne(() => CategoryEntity, (categoryEntity) => categoryEntity)
-    category: CategoryEntity;
-
-    @OneToMany(() => ImageEntity, (imageEntity) => imageEntity)
-    images: ImageEntity[];
-
-    @OneToMany(() => ReviewEntity, (reviewEntity) => reviewEntity)
-    reviews: ReviewEntity[];
-    
-    @OneToMany(() => SizeEntity, (sizeEntity) => sizeEntity)
-    sizes: SizeEntity[];
-
-    @OneToMany(() => ColorEntity, (colorEntity) => colorEntity)
-    colors: ColorEntity[];
 
 }
