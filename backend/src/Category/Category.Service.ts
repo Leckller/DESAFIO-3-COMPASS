@@ -19,7 +19,8 @@ export default class CategoryService {
 
     public async getCategories() {
 
-        const categories = await this.categoryRepository.find();
+        const categories = await this.categoryRepository
+            .find({ relations: { products: true, image: true } });
 
         return categories;
 

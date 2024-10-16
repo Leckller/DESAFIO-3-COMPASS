@@ -1,4 +1,3 @@
-import CategoryEntity from "src/Category/Category.Entity";
 import ProductEntity from "src/Product/Product.Entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -13,7 +12,7 @@ export default class ImageEntity {
     })
     imageLink: string;
 
-    @ManyToOne(() => ProductEntity, (productEntity) => productEntity)
+    @ManyToOne(() => ProductEntity, (productEntity) => productEntity.images)
     product: ProductEntity;
 
     @CreateDateColumn()
