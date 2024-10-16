@@ -6,7 +6,7 @@ export default class SizeEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
-    
+
     @ManyToOne(() => ProductEntity, (productEntity) => productEntity)
     product: ProductEntity;
 
