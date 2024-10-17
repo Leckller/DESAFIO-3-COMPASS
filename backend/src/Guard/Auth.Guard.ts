@@ -25,7 +25,7 @@ export default class AuthGuard implements CanActivate {
 
             return true;
 
-        } catch {
+        } catch (err) {
 
             return false;
 
@@ -38,7 +38,7 @@ export default class AuthGuard implements CanActivate {
 
         const [type, token] = authorization.split(' ');
 
-        if (type === 'bearer') {
+        if (type === 'bearer:') {
 
             const data = this.AuthService.verifyToken(token);
 
