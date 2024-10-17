@@ -7,22 +7,22 @@ export default class UserEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
-    
+
     @Column()
     name: string;
 
-    @Column({unique: true})
+    @Column({ unique: true })
     email: string;
 
     @Column()
     password: string;
 
-    @OneToMany(() => ItemEntity, (itemEntity) => itemEntity)
+    @OneToMany(() => ItemEntity, (itemEntity) => itemEntity.user)
     car: ItemEntity[];
 
-    @OneToMany(() => LikeEntity, (likeEntity) => likeEntity)
+    @OneToMany(() => LikeEntity, (likeEntity) => likeEntity.user)
     likes: LikeEntity[];
-    
+
     @CreateDateColumn()
     create_date: Date;
 
