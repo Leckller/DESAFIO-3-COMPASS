@@ -1,0 +1,50 @@
+import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import ProductService from "./Product.Service";
+import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
+import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
+
+@Controller('/Product')
+export default class ProductController {
+
+    constructor(
+        private readonly productService: ProductService
+    ) { }
+
+    @Get(':page')
+    public async getProducts(@Param('page') page: number) {
+
+        return await this.productService.getProducts(+page);
+
+    }
+
+    @Post()
+    public async addProduct(@Body() product: AddProductRequestDto) {
+
+        const {
+            category,
+            description,
+            discount_percent,
+            largeDescription,
+            name,
+            price
+        } = product;
+
+        return await this.productService.addProduct({
+            category,
+            description,
+            discount_percent,
+            largeDescription,
+            name,
+            price
+        });
+
+    }
+
+    @Patch()
+    public async setDiscount(@Body() { discount, productId }: SetDiscountRequestDto) {
+
+        return await this.productService.setDiscount({ discount, productId })
+
+    }
+
+}
