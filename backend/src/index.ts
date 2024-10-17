@@ -1,7 +1,9 @@
+import AuthModule from "./Auth/Auth.Module";
 import CategoryEntity from "./Category/Category.Entity";
 import CategoryModule from "./Category/Category.Module";
 import ColorEntity from "./Color/Color.Entity";
 import ColorModule from "./Color/Color.Module";
+import GuardModule from "./Guard/Guard.Module";
 import ImageEntity from "./Image/Image.Entity";
 import ImageModule from "./Image/Image.Module";
 import ImagesEntity from "./Image/Images.Entity";
@@ -22,7 +24,8 @@ import UserModule from "./User/User.Module";
 export const Modules = [
     CategoryModule, ColorModule, ImageModule,
     ItemModule, LikeModule, ProductModule,
-    ReviewModule, SizeModule, UserModule
+    ReviewModule, SizeModule, UserModule,
+    AuthModule, GuardModule
 ];
 
 export const Entities = [

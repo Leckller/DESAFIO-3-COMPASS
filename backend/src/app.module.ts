@@ -19,7 +19,11 @@ import { Entities, Modules } from 'src';
       port: +process.env.DB_PORT || 3307,
       synchronize: true,
       entities: [...Entities]
-    })
+    }),
+    JwtModule.register({
+      global: true,
+      secret: "compass is amazing!",
+    }),
   ],
   providers: [],
   controllers: [],
