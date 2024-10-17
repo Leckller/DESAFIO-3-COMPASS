@@ -1,41 +1,43 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Nav({ titles }: { titles: string[] }) {
+function Article({ buttons }: { buttons: { img: string, route: string }[] }) {
   const navigate = useNavigate();
 
-  const StyledNav = styled.nav`
+  const StyledArticle = styled.article`
     display: flex;
     justify-content: space-around;
     gap: 30px;
     align-items: center;
-  
-  `;
+`;
 
   const StyledButton = styled.button`
     background-color: transparent;
     border: none;
     cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
   `;
 
-  const StyledText = styled.h2``;
-
   return (
-    <StyledNav>
+    <StyledArticle>
 
-      {titles.map((text) => (
+      {buttons.map((btn) => (
+
         <StyledButton
-          key={ text }
-          onClick={ () => navigate(text) }
+          key={ btn.route }
+          onClick={ () => navigate(btn.route) }
         >
-          <StyledText>
-            {text}
-          </StyledText>
+          <img src={ btn.img } alt={ btn.route } />
         </StyledButton>
+
       ))}
 
-    </StyledNav>
+    </StyledArticle>
   );
 }
 
-export default Nav;
+export default Article;
