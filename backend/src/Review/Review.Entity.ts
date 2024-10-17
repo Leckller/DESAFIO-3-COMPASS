@@ -7,7 +7,7 @@ export default class ReviewEntity {
 
     @PrimaryGeneratedColumn()
     id: number;
-    
+
     @ManyToOne(() => ProductEntity, (productEntity) => productEntity)
     product: ProductEntity;
 
@@ -18,6 +18,9 @@ export default class ReviewEntity {
         default: 5
     })
     stars: number;
+
+    @Column()
+    comment: string;
 
     @CreateDateColumn()
     create_date: Date;

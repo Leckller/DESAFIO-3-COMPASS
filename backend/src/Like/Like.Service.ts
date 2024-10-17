@@ -60,7 +60,11 @@ export default class LikeService {
         const likes = await this.likeRepository
             .find({
                 where: { user: { id } },
-                relations: { product: true }
+                relations: {
+                    product: {
+                        images: true
+                    },
+                }
             });
 
         return likes;
