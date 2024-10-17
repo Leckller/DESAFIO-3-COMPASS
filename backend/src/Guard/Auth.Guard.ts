@@ -31,7 +31,6 @@ export default class AuthGuard implements CanActivate {
 
         }
 
-
     }
 
     private extractToken(authorization: string) {

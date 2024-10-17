@@ -45,8 +45,6 @@ export default class LikeService {
 
         }
 
-
-
         const like = this.likeRepository.create({
             user: { id },
             product: { id: productId }
@@ -55,6 +53,18 @@ export default class LikeService {
         await this.likeRepository.save(like);
 
         return like;
+    }
+
+    public async getLikes({ id }: TokenType) {
+
+        const likes = await this.likeRepository
+            .find({
+                where: { user: { id } },
+                relations: { product: true }
+            });
+
+        return likes;
+
     }
 
 }

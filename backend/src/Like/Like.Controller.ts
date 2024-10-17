@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import AuthGuard from "src/Guard/Auth.Guard";
 import LikeService from "./Like.Service";
 import { GetToken } from "src/Decorators/Token.Decorator";
@@ -15,6 +15,14 @@ export default class LikeController {
     public async toggleLike(@GetToken() token: TokenType, @Body() { productId }: LikeRequestDto) {
 
         return await this.likeService.toggleLike(token, productId);
+
+    }
+
+    @UseGuards(AuthGuard)
+    @Get()
+    public async getLikes(@GetToken() token: TokenType) {
+
+        return await this.likeService.getLikes(token);
 
     }
 
