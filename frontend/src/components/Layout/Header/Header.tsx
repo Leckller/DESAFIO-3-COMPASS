@@ -7,6 +7,8 @@ import { Cart, Heart, Lupa, User } from '../../../Assets/Header/index';
 function Header() {
   const StyledHeader = styled.header`
       display: flex;
+      //Provisorio
+      flex-wrap: wrap;
       width: 100%;
       justify-content: space-between;
 

@@ -7,6 +7,7 @@ function Article({ buttons }: { buttons: { img: string, route: string }[] }) {
   const StyledArticle = styled.article`
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     gap: 30px;
     align-items: center;
 `;

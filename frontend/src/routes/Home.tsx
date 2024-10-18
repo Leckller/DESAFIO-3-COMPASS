@@ -1,17 +1,20 @@
-import { categories } from '../services/Categories/categories';
-import { categoryProductsByName } from '../services/Categories/categoryProducts';
-import { productDetails } from '../services/Products/productDetails';
-import { products } from '../services/Products/products';
+import styled from 'styled-components';
+import Presentation from '../components/Home/Presentation';
+import Category from '../components/Home/Category';
 
 function Home() {
-  categoryProductsByName('dark').then((r) => console.log(r));
-  categories().then((r) => console.log(r));
-  products().then((r) => console.log(r));
-  productDetails('sofa').then((r) => console.log(r));
+  const StyledMain = styled.main`
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+  
+  `;
+
   return (
-    <>
-      Home
-    </>
+    <StyledMain>
+      <Presentation />
+      <Category />
+    </StyledMain>
   );
 }
 

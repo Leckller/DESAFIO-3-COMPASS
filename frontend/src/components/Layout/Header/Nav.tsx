@@ -6,6 +6,7 @@ function Nav({ titles }: { titles: string[] }) {
 
   const StyledNav = styled.nav`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     gap: 30px;
     align-items: center;

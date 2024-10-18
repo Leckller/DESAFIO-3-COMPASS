@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header/Header';
-import Main from './Main';
+import Footer from './Footer';
 
 function Layout() {
   return (
@@ -8,7 +8,7 @@ function Layout() {
 
       <Header />
       <Outlet />
-      <Main />
+      <Footer />
 
     </div>
   );
