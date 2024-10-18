@@ -26,15 +26,24 @@ export default class ProductService {
                 .find({
                     skip: page * 10, take: 8,
                     relations: {
-                        images: true,
+                        images: {image: true},
+                    },
+                    select: {
+                        id: true,
+                        price: true,
+                        discount_percent: true,
+                        description: true,
+                        create_date: true,
+                        name: true,
+                        images: {id:true, image: {id: true, imageLink: true}},
                     }
                 });
 
             return pages;
 
-        } catch {
+        } catch (err){
 
-            return []
+            return {err}
 
         }
 
@@ -66,10 +75,10 @@ export default class ProductService {
                 });
 
             return pages;
+            
+        } catch (err){
 
-        } catch {
-
-            return {}
+            return {err}
 
         }
 
@@ -103,9 +112,9 @@ export default class ProductService {
             await this.productRepository.save(newProduct);
     
             return newProduct;
-        } catch {
+        } catch (err){
 
-            return {}
+            return {err}
 
         }
 
@@ -135,9 +144,9 @@ export default class ProductService {
     
             return product;
 
-        } catch {
+        } catch (err){
 
-            return {}
+            return {err}
 
         }
 
