@@ -24,7 +24,8 @@ export default class ProductService {
 
             const pages = await this.productRepository
                 .find({
-                    skip: page * 10, take: 8,
+                    skip: +page * 10,
+                    take: 8,
                     relations: {
                         images: {image: true},
                     },

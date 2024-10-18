@@ -21,7 +21,7 @@ export default class CategoryService {
 
         const categories = await this.categoryRepository
             .find({ 
-                skip: page * 10,
+                skip: +page * 10,
                 take: 8,
                 relations: { image: true }, 
                 select: {
