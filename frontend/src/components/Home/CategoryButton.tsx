@@ -1,7 +1,10 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { ICategory } from '../../types/Category.Type';
 
 function CategoryButton({ category }: { category: ICategory }) {
+  const navigate = useNavigate();
+
   const StyledButton = styled.button`
     max-width: 300px;
     width: 100%;
@@ -10,6 +13,8 @@ function CategoryButton({ category }: { category: ICategory }) {
     border: none;
     border-radius: 8px;
     overflow: hidden;
+    cursor: pointer;
+    scroll-snap-align: center;
 
     img {
         object-fit: cover;
@@ -17,12 +22,11 @@ function CategoryButton({ category }: { category: ICategory }) {
         height: 480px;
     }
 
+
   `;
 
-  console.log(category);
-
   return (
-    <StyledButton>
+    <StyledButton onClick={ () => navigate(`product/${category.name}`) }>
 
       <img src={ category.image.imageLink } alt="category" />
       <h3>{category.name}</h3>

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { ICategory } from '../../types/Category.Type';
 import CategoryButton from './CategoryButton';
 import { getCategories } from '../../services/Categories/getCategories';
+import media from '../../Utils/media';
 
 function Category() {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -22,6 +23,17 @@ function Category() {
         justify-content: center;
         gap: 16px;
     }
+
+    ${media.md`
+        section {
+            height: 520px;
+            flex-wrap: wrap;
+            overflow: auto;
+            scroll-snap-type: x mandatory;
+            flex-direction: column;
+            padding: 0 16px 0 16px;
+        }    
+    `}
 
   `;
 
