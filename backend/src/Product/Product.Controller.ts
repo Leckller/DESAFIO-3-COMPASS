@@ -17,6 +17,14 @@ export default class ProductController {
 
     }
 
+    @Get('details/:productName')
+    public async getProductByName(@Param('productName') productName: string) {
+
+        return await this.productService.getProductByName(productName);
+
+    }
+
+
     @Post()
     public async addProduct(@Body() product: AddProductRequestDto) {
 
