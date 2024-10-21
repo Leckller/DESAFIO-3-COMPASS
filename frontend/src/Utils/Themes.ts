@@ -8,6 +8,7 @@ export const theme = {
   gold: '#B88E2F',
   Gold_md: '#FFF3E3',
   Gold_sm: '#F9F1E7',
+  gray: '#F4F5F7',
 };
 
 export default interface ITheme {
@@ -20,4 +21,5 @@ export default interface ITheme {
   gold: string,
   Gold_md: string,
   Gold_sm: string,
+  gray: string
 }

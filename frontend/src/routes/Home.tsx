@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import Presentation from '../components/Home/Presentation';
-import Category from '../components/Home/Category';
+import Categories from '../components/Home/Category/Categories';
+import Products from '../components/Home/Products/Products';
 
 function Home() {
   const StyledMain = styled.main`
     display: flex;
     flex-direction: column;
-    width: 100vw;
-  
+    width: 100%;
   `;
 
   return (
     <StyledMain>
       <Presentation />
-      <Category />
+      <Categories />
+      <Products />
     </StyledMain>
   );
 }

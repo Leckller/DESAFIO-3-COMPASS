@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ICategory } from '../../types/Category.Type';
+import { ICategory } from '../../../types/Category.Type';
 import CategoryButton from './CategoryButton';
-import { getCategories } from '../../services/Categories/getCategories';
-import media from '../../Utils/media';
+import { getCategories } from '../../../services/Categories/getCategories';
+import media from '../../../Utils/media';
 
-function Category() {
+function Categories() {
   const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
@@ -51,4 +51,4 @@ function Category() {
   );
 }
 
-export default Category;
+export default Categories;
