@@ -4,6 +4,7 @@ import { getProducts } from '../../../services/Products/getProducts';
 import { IProduct } from '../../../types/Product.Type';
 import Product from './Product';
 import ITheme from '../../../Utils/Themes';
+import media from '../../../Utils/media';
 
 function Products() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -28,16 +29,28 @@ function Products() {
     }
 
     section {
+        display: grid;
+        column-gap: 16px;
+        row-gap: 16px;
+        grid-template-columns: auto auto auto auto;
+    }
+
+    ${media.lg`
+      section {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 16px;
-    }
+      }
+    `}
 `;
 
   return (
 
     <StyledSection>
+      <h2>
+        Our Products
+      </h2>
+
       <section>
         {products.map((product) => (
           <Product product={ product } key={ product.id } />

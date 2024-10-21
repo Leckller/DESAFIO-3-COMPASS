@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../../types/Product.Type';
 import ITheme from '../../../Utils/Themes';
+import BubbleInfo from './BubbleInfo';
 
 function Product({ product }: { product: IProduct }) {
   const navigate = useNavigate();
@@ -13,20 +14,6 @@ function Product({ product }: { product: IProduct }) {
     font-size: 1.2rem;
     border: none;
     background-color: transparent;
-
-    & > div {
-      background-color: ${(prop) => (prop.theme as ITheme).red};
-      position: absolute;
-      border-radius: 100%;
-      height: 40px;
-      width: 40px;
-      right: 5%;
-      top: 5%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-    }
 
     img {
       object-fit: cover;
@@ -71,9 +58,10 @@ function Product({ product }: { product: IProduct }) {
       onClick={ () => navigate(`product/${product.name}`) }
     >
       <img src={ product?.images[0]?.image?.imageLink } alt="" />
-      <div>
-        {`${product.discount_percent}%`}
-      </div>
+      <BubbleInfo
+        date={ product.create_date }
+        discount={ product.discount_percent }
+      />
       <article>
         <h2>{product.name}</h2>
         <p>{product.description}</p>

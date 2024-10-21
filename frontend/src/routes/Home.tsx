@@ -7,6 +7,7 @@ function Home() {
   const StyledMain = styled.main`
     display: flex;
     flex-direction: column;
+    gap: 64px;
     width: 100%;
   `;
 
