@@ -1,0 +1,101 @@
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { ProductImage } from '../../types/ProductDetails.Type';
+import ITheme from '../../Utils/Themes';
+import media from '../../Utils/media';
+
+const StyledImages = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  gap: 16px;
+  padding: 16px;
+  padding-left: 64px;
+  margin-top: 32px;
+  ${media.md`
+    flex-direction: column;
+    padding-left: 0;
+    width: 100%;
+  `}
+  
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    
+    ${media.md`
+      flex-direction: row;  
+    `}
+    button {
+      border: none;
+      img {
+        width: 76px;
+        height: 80px;
+      }
+    }
+  }
+
+  img {
+    background-color: ${(p) => (p.theme as ITheme).Gold_sm};
+    max-width: 450px;
+    max-height: 500px;
+    height: 100%;
+    width: 100%;
+    ${media.md`
+      width: 100%;
+    `}
+  }
+
+`;
+
+function Images() {
+  const { product, loading } = useAppSelector((s) => s.Product);
+
+  const [images, setImages] = useState<ProductImage[]>([]);
+  const [selectedImage, setSelectedImage] = useState<ProductImage>();
+
+  useEffect(() => {
+    if ('images' in product) {
+      setImages(product.images.slice(1));
+      setSelectedImage(product.images[0]);
+    }
+  }, [product]);
+
+  const handleClick = (img: ProductImage) => {
+    setImages((prev) => (
+      [selectedImage!, ...prev.filter((i) => i.id !== selectedImage?.id)]
+    ));
+    setSelectedImage(img);
+  };
+
+  if (loading) return <section>Loading</section>;
+
+  return (
+    <StyledImages>
+      <section>
+        {images.slice(0, 5).map((img) => (
+          <button
+            onClick={ () => handleClick(img) }
+            key={ img.image.id }
+          >
+            <img
+              src={ img.image.imageLink }
+              alt={ product.name }
+            />
+          </button>
+        ))}
+        {images.slice(5).length > 0 && (
+          <button>
+            {images.slice(5).length}
+          </button>
+        )}
+      </section>
+      <img src={ selectedImage?.image.imageLink } alt={ product.name } />
+    </StyledImages>
+  );
+}
+
+export default Images;

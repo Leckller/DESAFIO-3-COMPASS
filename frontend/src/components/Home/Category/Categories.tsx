@@ -38,7 +38,9 @@ function Categories() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    if (categories.length === 0) {
+      dispatch(fetchCategories());
+    }
   }, []);
 
   return (
