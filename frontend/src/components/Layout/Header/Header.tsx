@@ -4,16 +4,15 @@ import Nav from './Nav';
 import Article from './Article';
 import { Cart, Heart, Lupa, User } from '../../../Assets/Header/index';
 
+const StyledHeader = styled.header`
+    display: flex;
+    //Provisorio
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+`;
+
 function Header() {
-  const StyledHeader = styled.header`
-      display: flex;
-      //Provisorio
-      flex-wrap: wrap;
-      width: 100%;
-      justify-content: space-between;
-
-  `;
-
   const buttons = [
     { img: User, route: 'user' },
     { img: Lupa, route: 'search' },
@@ -25,7 +24,14 @@ function Header() {
     <StyledHeader>
 
       <Logo />
-      <Nav titles={ ['Home', 'Shop', 'About', 'Contact'] } />
+      <Nav
+        titles={ [
+          { title: 'Home', for: '' },
+          { title: 'Shop', for: 'shop' },
+          { title: 'About', for: 'about' },
+          { title: 'Contact', for: 'contact' },
+        ] }
+      />
       <Article buttons={ buttons } />
 
     </StyledHeader>

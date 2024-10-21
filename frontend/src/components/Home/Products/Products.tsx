@@ -1,64 +1,49 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getProducts } from '../../../services/Products/getProducts';
-import { IProduct } from '../../../types/Product.Type';
 import Product from './Product';
 import ITheme from '../../../Utils/Themes';
 import media from '../../../Utils/media';
+import { IProduct } from '../../../types/Product.Type';
 
-function Products() {
-  const [products, setProducts] = useState<IProduct[]>([]);
+const StyledSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
 
-  useEffect(() => {
-    getProducts().then((resp) => setProducts(resp));
-  }, []);
+  & > button {
+      display: flex;
+      color: ${(prop) => (prop.theme as ITheme).gold};
+      background-color: transparent;
+      border: solid 1px ${(prop) => (prop.theme as ITheme).gold};
+      padding: 8px 32px;
+  }
 
-  const StyledSection = styled.section`
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    justify-content: center;
-    align-items: center;
+  section {
+      display: grid;
+      column-gap: 16px;
+      row-gap: 16px;
+      grid-template-columns: auto auto auto auto;
+  }
 
-    & > button {
-        display: flex;
-        color: ${(prop) => (prop.theme as ITheme).gold};
-        background-color: transparent;
-        border: solid 1px ${(prop) => (prop.theme as ITheme).gold};
-        padding: 8px 32px;
-    }
-
+  ${media.lg`
     section {
-        display: grid;
-        column-gap: 16px;
-        row-gap: 16px;
-        grid-template-columns: auto auto auto auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
-
-    ${media.lg`
-      section {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-    `}
+  `}
 `;
 
+function Products({ products }: { products: IProduct[] }) {
   return (
 
     <StyledSection>
-      <h2>
-        Our Products
-      </h2>
-
       <section>
         {products.map((product) => (
           <Product product={ product } key={ product.id } />
         ))}
       </section>
-      <button>
-        Show More
-      </button>
     </StyledSection>
 
   );

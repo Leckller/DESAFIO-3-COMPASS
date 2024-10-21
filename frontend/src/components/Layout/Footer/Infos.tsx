@@ -1,32 +1,32 @@
 import styled from 'styled-components';
 import ITheme from '../../../Utils/Themes';
 
-function Infos() {
-  const StyledInfos = styled.article`
+const StyledInfos = styled.article`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 32px;
+  gap: 16px;
+
+  h3 {
+    color: ${(p) => (p.theme as ITheme).TextColor_sm};
+    font-weight: 700;
+  }
+
+  a {
+    color: ${(p) => (p.theme as ITheme).TextColor};
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  article {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    padding: 32px;
+    flex-direction: column;
     gap: 16px;
+  }
+`;
 
-    h3 {
-      color: ${(p) => (p.theme as ITheme).TextColor_sm};
-      font-weight: 700;
-    }
-
-    a {
-      color: ${(p) => (p.theme as ITheme).TextColor};
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    article {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-  `;
-
+function Infos() {
   return (
     <StyledInfos>
 

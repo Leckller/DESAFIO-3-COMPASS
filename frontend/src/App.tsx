@@ -7,8 +7,11 @@ function App() {
     <Routes>
       <Route element={ <Layout /> }>
         <Route path="/" element={ <Home /> } />
-        <Route path="/product" element={ <Product /> } />
-        <Route path="/shop" element={ <Shop /> } />
+        <Route path="/product/:item" element={ <Product /> } />
+        <Route path="/home/shop/:category" element={ <Shop /> } />
+        <Route path="/home/shop" element={ <Shop /> } />
+        <Route path="shop/:category" element={ <Shop /> } />
+        <Route path="shop" element={ <Shop /> } />
       </Route>
       <Route path="*" element={ <NotFound /> } />
     </Routes>

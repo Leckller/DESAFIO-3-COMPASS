@@ -1,36 +1,36 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Nav({ titles }: { titles: string[] }) {
+const StyledNav = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  align-items: center;
+
+`;
+
+const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
+
+const StyledText = styled.h2``;
+
+function Nav({ titles }: { titles: { title: string, for: string }[] }) {
   const navigate = useNavigate();
-
-  const StyledNav = styled.nav`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 30px;
-    align-items: center;
-  
-  `;
-
-  const StyledButton = styled.button`
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  `;
-
-  const StyledText = styled.h2``;
 
   return (
     <StyledNav>
 
-      {titles.map((text) => (
+      {titles.map((t) => (
         <StyledButton
-          key={ text }
-          onClick={ () => navigate(text) }
+          key={ t.title }
+          onClick={ () => navigate(t.for) }
         >
           <StyledText>
-            {text}
+            {t.title}
           </StyledText>
         </StyledButton>
       ))}

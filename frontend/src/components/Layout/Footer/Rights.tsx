@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-function Rights() {
-  const StyledRights = styled.section`
-    section {
-      padding:  64px;
-    }
+const StyledRights = styled.section`
+  section {
+    padding:  64px;
+  }
 `;
 
+function Rights() {
   return (
     <StyledRights>
       <section>

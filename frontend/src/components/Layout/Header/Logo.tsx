@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
+const StyledLogo = styled.label`
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 80px;
+    object-fit: contain
+  }
+`;
+
+const StyledTitle = styled.h1`
+`;
+
 function Logo() {
-  const StyledLogo = styled.label`
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 80px;
-      object-fit: contain
-    }
-  `;
-
-  const StyledTitle = styled.h1`
-  `;
-
   return (
 
     <StyledLogo>
