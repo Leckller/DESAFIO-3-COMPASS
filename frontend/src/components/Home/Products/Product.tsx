@@ -1,13 +1,18 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../../types/Product.Type';
 import ITheme from '../../../Utils/Themes';
 
 function Product({ product }: { product: IProduct }) {
-  const StyledArticle = styled.article`
+  const navigate = useNavigate();
+
+  const StyledButton = styled.button`
     display: flex;
     flex-direction: column;
     position: relative;
     font-size: 1.2rem;
+    border: none;
+    background-color: transparent;
 
     & > div {
       background-color: ${(prop) => (prop.theme as ITheme).red};
@@ -27,6 +32,7 @@ function Product({ product }: { product: IProduct }) {
       object-fit: cover;
       width: 280px;
       height: 300px;
+      border: none;
     }
 
     article {
@@ -36,6 +42,8 @@ function Product({ product }: { product: IProduct }) {
       gap: 8px;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      text-align: start;
 
       p {
         color: ${(prop) => (prop.theme as ITheme).TextColor_md};
@@ -59,7 +67,9 @@ function Product({ product }: { product: IProduct }) {
   `;
 
   return (
-    <StyledArticle>
+    <StyledButton
+      onClick={ () => navigate(`product/${product.name}`) }
+    >
       <img src={ product?.images[0]?.image?.imageLink } alt="" />
       <div>
         {`${product.discount_percent}%`}
@@ -74,7 +84,7 @@ function Product({ product }: { product: IProduct }) {
           )}
         </div>
       </article>
-    </StyledArticle>
+    </StyledButton>
 
   );
 }

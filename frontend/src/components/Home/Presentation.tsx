@@ -14,7 +14,7 @@ function Presentation() {
 
     img {
         object-fit: cover;
-        height: 300px;
+        height: 400px;
     }
 
     article {
