@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ClickerReducer from './Reducers/Clicker';
+import ProductReducer from './Reducers/Products';
 
 export const store = configureStore({
   reducer: {
-    Clicker: ClickerReducer,
+    Product: ProductReducer,
   },
 });
 

@@ -18,26 +18,68 @@ export default class ProductService {
 
 
     public async getProducts(page: number = 0) {
-
+        // Retorna os produtos apenas com o relacionamento de imagens
+        // Metodo recomentado para páginas sem descrições ( Home e Shop )
         try {
 
             const pages = await this.productRepository
                 .find({
-                    skip: page * 10, take: 8,
+                    skip: +page * 10,
+                    take: 8,
                     relations: {
-                        category: true,
-                        images: true,
-                        reviews: true,
-                        sizes: true,
-                        colors: true,
+                        images: {image: true},
+                    },
+                    select: {
+                        id: true,
+                        price: true,
+                        discount_percent: true,
+                        description: true,
+                        create_date: true,
+                        name: true,
+                        images: {id:true, image: {id: true, imageLink: true}},
                     }
                 });
 
             return pages;
 
-        } catch {
+        } catch (err){
 
-            return []
+            return {err}
+
+        }
+
+    }
+
+    public async getProductByName(productName: string) {
+        // Retorna um produto com todos os seus relacionamentos
+        // Metodo recomentado para página com descrição do produto ( Product )
+        try {
+            
+            const pages = await this.productRepository
+                .findOne({
+                    where: {name: productName},
+                    relations: {
+                        images: {image: true},
+                        category: true,
+                        colors: true,
+                        sizes: true,
+                        reviews: true,
+                    },
+                    // Seleciona apenas os atributos necessários
+                    select: {
+                        category: {id: true, name: true},
+                        colors: {id: true, color: true},
+                        sizes: {id: true, size: true},
+                        reviews: {id: true, comment: true, stars: true, },
+                        images: {id: true, image: {id: true, imageLink: true}},
+                    }
+                });
+
+            return pages;
+            
+        } catch (err){
+
+            return {err}
 
         }
 
@@ -45,55 +87,69 @@ export default class ProductService {
 
     public async addProduct(product: AddProductRequestDto) {
 
-        const { description, discount_percent, largeDescription, name, price } = product;
+        try {
+            const { description, discount_percent, largeDescription, name, price } = product;
 
-        const category = await this.categoryRepository
-            .findOne({ where: { id: product.category } });
+            const category = await this.categoryRepository
+                .findOne({ where: { id: product.category } });
+    
+            if (!category) {
+    
+                throw new NotFoundException('Categoria não encontrada');
+    
+            }
+    
+            const newProduct = this.productRepository.create({
+                category,
+                description,
+                discount_percent,
+                large_description: largeDescription,
+                name,
+                price: +price,
+                // TODO
+                sku: '01010101'
+            });
+    
+            await this.productRepository.save(newProduct);
+    
+            return newProduct;
+        } catch (err){
 
-        if (!category) {
-
-            throw new NotFoundException('Categoria não encontrada');
+            return {err}
 
         }
-
-        const newProduct = this.productRepository.create({
-            category,
-            description,
-            discount_percent,
-            large_description: largeDescription,
-            name,
-            price: +price,
-            // TODO
-            sku: '01010101'
-        });
-
-        await this.productRepository.save(newProduct);
-
-        return newProduct;
 
     }
 
     public async setDiscount({ discount, productId }: SetDiscountRequestDto) {
 
-        const product = await this.productRepository.findOne({ where: { id: productId } });
+        try {
 
-        if (!product) {
+            const product = await this.productRepository.findOne({ where: { id: productId } });
 
-            throw new NotFoundException('Produto não encontrado');
+            if (!product) {
+    
+                throw new NotFoundException('Produto não encontrado');
+    
+            }
+    
+            if (discount < 0 || discount > 80) {
+    
+                throw new BadRequestException("Disconto inválido");
+    
+            }
+    
+            product.discount_percent = discount;
+    
+            await this.productRepository.save(product);
+    
+            return product;
+
+        } catch (err){
+
+            return {err}
 
         }
-
-        if (discount < 0 || discount > 80) {
-
-            throw new BadRequestException("Disconto inválido");
-
-        }
-
-        product.discount_percent = discount;
-
-        await this.productRepository.save(product);
-
-        return product;
 
     }
 

@@ -17,10 +17,18 @@ export default class CategoryService {
 
     ) { }
 
-    public async getCategories() {
+    public async getCategories(page: number = 0) {
 
         const categories = await this.categoryRepository
-            .find({ relations: { products: true, image: true } });
+            .find({ 
+                skip: +page * 10,
+                take: 8,
+                relations: { image: true }, 
+                select: {
+                    image: {id: true, imageLink: true},
+                    name: true, id: true
+                }
+            });
 
         return categories;
 
@@ -31,7 +39,27 @@ export default class CategoryService {
         const category = await this.categoryRepository
             .findOne({
                 where: { id },
-                relations: { products: true, image: true }
+                relations: { 
+                    products: {images: {image: true}},
+                    image: true
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    image: {id: true, imageLink: true},
+                    products: {
+                        id: true,
+                        price: true,
+                        description: true,
+                        name: true,
+                        discount_percent: true,
+                        images: {
+                            id: true,
+                            image: {id: true, imageLink: true}
+                        },
+                        update_date: true,
+                    }
+                }
             });
 
         return category;
@@ -43,7 +71,27 @@ export default class CategoryService {
         const category = await this.categoryRepository
             .findOne({
                 where: { name },
-                relations: { products: true, image: true }
+                relations: { 
+                    products: {images: {image: true}},
+                    image: true
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    image: {id: true, imageLink: true},
+                    products: {
+                        id: true,
+                        price: true,
+                        description: true,
+                        name: true,
+                        discount_percent: true,
+                        images: {
+                            id: true,
+                            image: {id: true, imageLink: true}
+                        },
+                        update_date: true,
+                    }
+                }
             });
 
         return category;

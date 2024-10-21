@@ -9,14 +9,14 @@ export default class CategoryController {
         private readonly categoryService: CategoryService
     ) { }
 
-    @Get()
-    public async getCategories() {
+    @Get(":page")
+    public async getCategories(@Param('page') page: number) {
 
-        return await this.categoryService.getCategories();
+        return await this.categoryService.getCategories(+page);
 
     }
 
-    @Get(':id')
+    @Get('id/:id')
     public async getCategoryById(@Param('id') id: number) {
 
         return await this.categoryService.getCategoryById(+id);
