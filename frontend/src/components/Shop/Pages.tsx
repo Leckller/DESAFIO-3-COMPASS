@@ -35,29 +35,31 @@ function Pages() {
 
   return (
     <StyledSection>
-      <StyledButton
-        disabled={ page === 0 }
-        onClick={ () => dispatch(setPage(page - 1)) }
-      >
-        Previous
-      </StyledButton>
       {pages.length > 1 && (
-        pages.map((_, i) => (
+        <>
           <StyledButton
-            color={ page === i ? '1' : '0' }
-            onClick={ () => dispatch(setPage(i)) }
-            key={ i }
+            disabled={ page === 0 }
+            onClick={ () => dispatch(setPage(page - 1)) }
           >
-            {i + 1}
+            Previous
           </StyledButton>
-        ))
+          {pages.map((_, i) => (
+            <StyledButton
+              color={ page === i ? '1' : '0' }
+              onClick={ () => dispatch(setPage(i)) }
+              key={ i }
+            >
+              {i + 1}
+            </StyledButton>
+          ))}
+          <StyledButton
+            disabled={ (pages.length - 1) === page }
+            onClick={ () => dispatch(setPage(page + 1)) }
+          >
+            Next
+          </StyledButton>
+        </>
       )}
-      <StyledButton
-        disabled={ (pages.length - 1) === page }
-        onClick={ () => dispatch(setPage(page + 1)) }
-      >
-        Next
-      </StyledButton>
     </StyledSection>
   );
 }

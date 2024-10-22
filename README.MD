@@ -25,6 +25,20 @@
 
   <h2>Como Rodar o Projeto</h2>
 
+  <h3>Insomnia</h3>
+  <ol>
+    <li>Acesse a pasta raiz:
+      <pre><code>Copie o arquivo Insomnia_2024-10-22_Furniro</code></pre>
+    </li>
+    <li>Abra o insomnia:
+      <pre><code>Clique em "Import"</code></pre>
+    </li>
+    <li>Cole o arquivo:
+      <pre><code>Ctrl+v ou arraste o arquivo até a área de import.</code></pre>
+    </li>
+  </ol>
+
+
   <h3>Backend</h3>
   <ol>
     <li>Acesse a pasta do backend:
