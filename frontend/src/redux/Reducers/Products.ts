@@ -57,7 +57,6 @@ export const ProductsSlice = createSlice({
       .addCase(
         fetchProducts.fulfilled,
         (state, action) => {
-          console.log(action.payload);
           state.loading = false;
           state.products = action.payload.products;
           state.countProducts = action.payload.count;
