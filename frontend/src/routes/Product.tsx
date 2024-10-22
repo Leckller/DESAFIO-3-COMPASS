@@ -12,7 +12,8 @@ const StyledMain = styled.main`
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-  }
+    margin-top: 32px;
+}
 
 `;
 

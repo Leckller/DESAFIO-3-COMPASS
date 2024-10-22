@@ -12,7 +12,6 @@ const StyledImages = styled.section`
   width: 45%;
   gap: 16px;
   padding: 16px;
-  margin-top: 32px;
   
   ${media.md`
     flex-direction: column;

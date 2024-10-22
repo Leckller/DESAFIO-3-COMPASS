@@ -6,13 +6,20 @@ import Sizes from './Sizes';
 import Stars from './Stars';
 import TopText from './TopText';
 import Form from './Form';
+import media from '../../../Utils/media';
 
 const StyledInfos = styled.section`
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: start;
   width: 45%;
   flex-direction: column;
+  gap: 16px;
+
+  ${media.md`
+    width: 100%;
+    align-items: center;
+  `}
 
   button {
     border: none;

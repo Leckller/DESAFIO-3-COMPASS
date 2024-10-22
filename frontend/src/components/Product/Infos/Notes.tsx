@@ -1,27 +1,46 @@
+import styled from 'styled-components';
 import { useAppSelector } from '../../../hooks/reduxHooks';
+import ITheme from '../../../Utils/Themes';
+
+const StyledNotes = styled.section`
+  color: ${(p) => (p.theme as ITheme).TextColor_sm};
+  label {
+    display: flex;
+    gap: 16px;
+
+    p:nth-child(1) {
+      width: 60px;
+    }
+  }
+
+`;
 
 function Notes() {
   const { product } = useAppSelector((s) => s.Product);
 
   return (
-    <section>
+    <StyledNotes>
       <label>
-        SKU:
+        <p>SKU</p>
+        :
         <p>{product?.sku}</p>
       </label>
       <label>
-        Category:
+        <p>Category</p>
+        :
         <p>{product?.category?.name}</p>
       </label>
       <label>
-        Tags:
+        <p>Tags</p>
+        :
         <p>{`TODO ${product.id}`}</p>
       </label>
       <label>
-        Share:
+        <p>Share</p>
+        :
         <a href="www.google.com" target="_blank">{`Google ${product.id}`}</a>
       </label>
-    </section>
+    </StyledNotes>
   );
 }
 
