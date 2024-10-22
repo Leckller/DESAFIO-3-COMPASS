@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../../types/Product.Type';
 import ITheme from '../../../Utils/Themes';
 import BubbleInfo from './BubbleInfo';
+import { discount } from '../../../Utils/discount';
 
 const StyledButton = styled.button`
   display: flex;
@@ -70,7 +71,7 @@ function Product({ product }: { product: IProduct }) {
         <div>
           <p>{product.price}</p>
           {product.discount_percent > 0 && (
-            <p>{product.price * ((100 - product.discount_percent) / 100)}</p>
+            <p>{discount(product.price, product.discount_percent)}</p>
           )}
         </div>
       </article>

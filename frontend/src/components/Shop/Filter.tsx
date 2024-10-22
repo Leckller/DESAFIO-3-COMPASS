@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 import ITheme from '../../Utils/Themes';
+import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
+import { setShow } from '../../redux/Reducers/Filter';
+import { sortProducts } from '../../redux/Reducers/Products';
+import { ISort } from '../../types/Sort.Type';
 
 const StyledFilter = styled.section`
     display: flex;
@@ -44,7 +48,8 @@ function Filter() {
   useEffect(() => {
     if (category) {
       dispatch(fetchCategoryProducts(category));
-    }
+      return;
+    } dispatch(fetchProducts(0));
   }, []);
 
   return (
@@ -68,11 +73,19 @@ function Filter() {
       <section>
         <label>
           Show
-          <input type="number" defaultValue={ 16 } min={ 8 } max={ 24 } />
+          <input
+            onChange={ ({ target: { value } }) => dispatch(setShow(+value)) }
+            type="number"
+            defaultValue={ 8 }
+            min={ 1 }
+            max={ 24 }
+          />
         </label>
         <label>
-          Short by
-          <select>
+          Sort by
+          <select
+            onChange={ ({ target: { value } }) => dispatch(sortProducts(value as ISort)) }
+          >
             <option value="default">Default</option>
             <option value="lowest">Lowest price</option>
             <option value="highest">Highest price</option>

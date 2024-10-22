@@ -18,13 +18,13 @@ const StyledMain = styled.main`
 `;
 
 function Shop() {
-  const { products } = useAppSelector((s) => s.Product);
+  const { Product: { products }, Filter: { show, page } } = useAppSelector((s) => s);
 
   return (
     <StyledMain>
       <Banner />
       <Filter />
-      <Products products={ products } />
+      <Products products={ products.slice(show * page, (show * page) + show) } />
       <Pages />
     </StyledMain>
 
