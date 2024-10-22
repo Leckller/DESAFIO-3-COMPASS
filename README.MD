@@ -54,4 +54,6 @@
   <h2>Contribuições</h2>
   <p>Se você deseja contribuir, fique à vontade para fazer um fork e abrir pull requests!</p>
 
-  <small>Readme claramente gerado por IA, mas tá no jogo tem q usar ¯\_(ツ)_/¯</small>
+  <small>
+  Readme claramente gerado por IA, mas tá no jogo tem q usar ¯\_(ツ)_/¯
+  </small>
