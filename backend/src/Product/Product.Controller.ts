@@ -24,6 +24,13 @@ export default class ProductController {
 
     }
 
+    @Get('id/:id')
+    public async getProductById(@Param('id') productId: number) {
+
+        return await this.productService.getProductById(+productId);
+
+    }
+
 
     @Post()
     public async addProduct(@Body() product: AddProductRequestDto) {
