@@ -25,7 +25,7 @@ const StyledFilter = styled.section`
         font-weight: 700;
 
         input {
-          width: 31px;
+          width: 62px;
         }
 
         input, select {
@@ -68,7 +68,7 @@ function Filter() {
       <section>
         <label>
           Show
-          <input type="number" defaultValue={ 16 } max={ 24 } />
+          <input type="number" defaultValue={ 16 } min={ 8 } max={ 24 } />
         </label>
         <label>
           Short by

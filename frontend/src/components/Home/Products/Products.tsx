@@ -40,7 +40,7 @@ function Products({ products }: { products: IProduct[] }) {
 
     <StyledSection>
       <section>
-        {products.map((product) => (
+        {products.length > 0 && products.map((product) => (
           <Product product={ product } key={ product.id } />
         ))}
       </section>

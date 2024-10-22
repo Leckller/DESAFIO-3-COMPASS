@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { ICategory } from '../../../types/Category.Type';
 import CategoryButton from './CategoryButton';
-import { getCategories } from '../../../services/Categories/getCategories';
 import media from '../../../Utils/media';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import { fetchCategories } from '../../../redux/Thunks/CategoriesThunk';
@@ -19,6 +17,7 @@ const StyledSection = styled.section`
       width: 100%;
       justify-content: center;
       gap: 16px;
+      max-height: 600px;
   }
 
   ${media.md`
@@ -38,7 +37,9 @@ function Categories() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    if (categories.length === 0) {
+      dispatch(fetchCategories());
+    }
   }, []);
 
   return (

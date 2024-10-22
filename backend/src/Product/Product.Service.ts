@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import ProductEntity from "./Product.Entity";
-import { Repository } from "typeorm";
+import { Not, Repository } from "typeorm";
 import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
 import CategoryEntity from "src/Category/Category.Entity";
 import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
@@ -54,8 +54,8 @@ export default class ProductService {
         // Retorna um produto com todos os seus relacionamentos
         // Metodo recomentado para página com descrição do produto ( Product )
         try {
-            
-            const pages = await this.productRepository
+
+            const product = await this.productRepository
                 .findOne({
                     where: {name: productName},
                     relations: {
@@ -75,8 +75,87 @@ export default class ProductService {
                     }
                 });
 
-            return pages;
+            const relatedProducts = await this.productRepository
+            .find({
+                // Pega os 4 primeiros produtos da categoria menos o escolhido.
+                where: { category: {id: product.category.id}, id: Not(product.id)},
+                take: 4,
+                relations: { 
+                    images: {image: true}
+                },
+                select: {
+                    id: true,
+                    price: true,
+                    description: true,
+                    name: true,
+                    discount_percent: true,
+                    images: {
+                        id: true,
+                        image: {id: true, imageLink: true}
+                    },
+                    update_date: true,
+                }
+            });
+    
+            return {...product, relatedProducts};
             
+        } catch (err){
+
+            return {err}
+
+        }
+
+    }
+
+    public async getProductById(productId: number) {
+        // Retorna um produto com todos os seus relacionamentos
+        // Metodo recomentado para página com descrição do produto ( Product )
+        try {
+            
+            const product = await this.productRepository
+                .findOne({
+                    where: {id: productId},
+                    relations: {
+                        images: {image: true},
+                        category: true,
+                        colors: true,
+                        sizes: true,
+                        reviews: true,
+                    },
+                    // Seleciona apenas os atributos necessários
+                    select: {
+                        category: {id: true, name: true},
+                        colors: {id: true, color: true},
+                        sizes: {id: true, size: true},
+                        reviews: {id: true, comment: true, stars: true, },
+                        images: {id: true, image: {id: true, imageLink: true}},
+                    }
+                });
+
+            const relatedProducts = await this.productRepository
+            .find({
+                // Pega os 4 primeiros produtos da categoria menos o escolhido.
+                where: { category: {id: product.category.id}, id: Not(product.id)},
+                take: 4,
+                relations: { 
+                    images: {image: true},
+                },
+                select: {
+                    id: true,
+                    price: true,
+                    description: true,
+                    name: true,
+                    discount_percent: true,
+                    images: {
+                        id: true,
+                        image: {id: true, imageLink: true}
+                    },
+                    update_date: true,
+                }
+            });
+            
+            return {...product, relatedProducts};
+
         } catch (err){
 
             return {err}

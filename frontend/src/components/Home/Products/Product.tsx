@@ -26,6 +26,7 @@ const StyledButton = styled.button`
     gap: 8px;
     display: flex;
     flex-direction: column;
+    max-width: 280px;
     width: 100%;
     text-align: start;
 
@@ -40,6 +41,7 @@ const StyledButton = styled.button`
 
       p {
         color: ${(prop) => (prop.theme as ITheme).TextColor};
+        word-break: break-all;
       }
 
       p:nth-child(2) {
@@ -55,7 +57,7 @@ function Product({ product }: { product: IProduct }) {
 
   return (
     <StyledButton
-      onClick={ () => navigate(`/product/${product.name}`) }
+      onClick={ () => navigate(`/product/${product.name}/${product.id}`) }
     >
       <img src={ product?.images[0]?.image?.imageLink } alt="" />
       <BubbleInfo
