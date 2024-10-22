@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ActPage from '../components/Product/ActPage';
-import { useAppDispatch } from '../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { fetchProductsDetails } from '../redux/Thunks/ProductDetailsThunk';
 import Images from '../components/Product/Images';
 import Infos from '../components/Product/Infos/Infos';
@@ -19,13 +19,17 @@ const StyledMain = styled.main`
 
   section:nth-child(4) {
     display: flex;
+    flex-direction: column;
     margin-top: 64px;
+    gap: 16px;
+    align-items: center;
     justify-content: center;
   }
 `;
 
 function Product() {
   const dispatch = useAppDispatch();
+  const { product } = useAppSelector((s) => s.Product);
 
   const { id } = useParams();
 
@@ -43,7 +47,7 @@ function Product() {
       <Description />
       <section>
         <h2>Related Products</h2>
-        <Products products={ [] } />
+        <Products products={ product.relatedProducts } />
       </section>
     </StyledMain>
   );

@@ -1,3 +1,5 @@
+import { IProduct } from './Product.Type';
+
 type ImageDetail = {
   id: number;
   imageLink: string;
@@ -44,4 +46,5 @@ export type IProductDetails = {
   colors: Color[]; // Array de cores
   sizes: Size[]; // Array de tamanhos
   reviews: Review[]; // Array de reviews
+  relatedProducts: IProduct[];
 };

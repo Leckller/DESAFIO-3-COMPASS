@@ -9,6 +9,7 @@ const StyledDescription = styled.section`
   align-items: center;
   gap: 32px;
   margin-top: 64px;
+  padding: 64px;
 
   article {
     display: flex;
@@ -22,6 +23,8 @@ const StyledDescription = styled.section`
 
   p {
     color: ${(p) => (p.theme as ITheme).TextColor_sm};
+    max-width: 1200px;
+    word-break: break-all
   }
 `;
 
