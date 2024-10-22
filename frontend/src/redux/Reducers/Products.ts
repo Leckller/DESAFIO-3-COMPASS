@@ -9,6 +9,7 @@ import { IProductDetails } from '../../types/ProductDetails.Type';
 
 interface ProductsState {
   products: IProduct[],
+  countProducts: number,
   product: IProductDetails,
   categories: ICategory[],
   loading: boolean,
@@ -16,6 +17,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   products: [],
+  countProducts: 0,
   categories: [],
   product: {} as IProductDetails,
   loading: false,
@@ -33,8 +35,10 @@ export const ProductsSlice = createSlice({
       .addCase(
         fetchProducts.fulfilled,
         (state, action) => {
+          console.log(action.payload)
           state.loading = false;
-          state.products = action.payload;
+          state.products = action.payload.products;
+          state.countProducts = action.payload.count;
         },
       );
 
@@ -70,7 +74,8 @@ export const ProductsSlice = createSlice({
         fetchCategoryProducts.fulfilled,
         (state, action) => {
           state.loading = false;
-          state.products = action.payload.products;
+          state.products = action.payload.category.products;
+          state.countProducts = action.payload.countProducts;
         },
       );
   },

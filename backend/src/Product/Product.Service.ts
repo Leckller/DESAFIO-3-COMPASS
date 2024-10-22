@@ -22,12 +22,13 @@ export default class ProductService {
         // Metodo recomentado para páginas sem descrições ( Home e Shop )
         try {
 
-            const pages = await this.productRepository
-                .find({
+            const [products, count] = await this.productRepository
+                // Pega 8 itens e conta a quantidade total de itens
+                .findAndCount({
                     skip: +page * 10,
                     take: 8,
                     relations: {
-                        images: {image: true},
+                        images: { image: true },
                     },
                     select: {
                         id: true,
@@ -36,15 +37,15 @@ export default class ProductService {
                         description: true,
                         create_date: true,
                         name: true,
-                        images: {id:true, image: {id: true, imageLink: true}},
+                        images: { id: true, image: { id: true, imageLink: true } },
                     }
                 });
 
-            return pages;
+            return { products, count };
 
-        } catch (err){
+        } catch (err) {
 
-            return {err}
+            return { err }
 
         }
 
@@ -57,9 +58,9 @@ export default class ProductService {
 
             const product = await this.productRepository
                 .findOne({
-                    where: {name: productName},
+                    where: { name: productName },
                     relations: {
-                        images: {image: true},
+                        images: { image: true },
                         category: true,
                         colors: true,
                         sizes: true,
@@ -67,41 +68,41 @@ export default class ProductService {
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
-                        category: {id: true, name: true},
-                        colors: {id: true, color: true},
-                        sizes: {id: true, size: true},
-                        reviews: {id: true, comment: true, stars: true, },
-                        images: {id: true, image: {id: true, imageLink: true}},
+                        category: { id: true, name: true },
+                        colors: { id: true, color: true },
+                        sizes: { id: true, size: true },
+                        reviews: { id: true, comment: true, stars: true, },
+                        images: { id: true, image: { id: true, imageLink: true } },
                     }
                 });
 
             const relatedProducts = await this.productRepository
-            .find({
-                // Pega os 4 primeiros produtos da categoria menos o escolhido.
-                where: { category: {id: product.category.id}, id: Not(product.id)},
-                take: 4,
-                relations: { 
-                    images: {image: true}
-                },
-                select: {
-                    id: true,
-                    price: true,
-                    description: true,
-                    name: true,
-                    discount_percent: true,
-                    images: {
-                        id: true,
-                        image: {id: true, imageLink: true}
+                .find({
+                    // Pega os 4 primeiros produtos da categoria menos o escolhido.
+                    where: { category: { id: product.category.id }, id: Not(product.id) },
+                    take: 4,
+                    relations: {
+                        images: { image: true }
                     },
-                    update_date: true,
-                }
-            });
-    
-            return {...product, relatedProducts};
-            
-        } catch (err){
+                    select: {
+                        id: true,
+                        price: true,
+                        description: true,
+                        name: true,
+                        discount_percent: true,
+                        images: {
+                            id: true,
+                            image: { id: true, imageLink: true }
+                        },
+                        update_date: true,
+                    }
+                });
 
-            return {err}
+            return { ...product, relatedProducts };
+
+        } catch (err) {
+
+            return { err }
 
         }
 
@@ -111,12 +112,12 @@ export default class ProductService {
         // Retorna um produto com todos os seus relacionamentos
         // Metodo recomentado para página com descrição do produto ( Product )
         try {
-            
+
             const product = await this.productRepository
                 .findOne({
-                    where: {id: productId},
+                    where: { id: productId },
                     relations: {
-                        images: {image: true},
+                        images: { image: true },
                         category: true,
                         colors: true,
                         sizes: true,
@@ -124,41 +125,41 @@ export default class ProductService {
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
-                        category: {id: true, name: true},
-                        colors: {id: true, color: true},
-                        sizes: {id: true, size: true},
-                        reviews: {id: true, comment: true, stars: true, },
-                        images: {id: true, image: {id: true, imageLink: true}},
+                        category: { id: true, name: true },
+                        colors: { id: true, color: true },
+                        sizes: { id: true, size: true },
+                        reviews: { id: true, comment: true, stars: true, },
+                        images: { id: true, image: { id: true, imageLink: true } },
                     }
                 });
 
             const relatedProducts = await this.productRepository
-            .find({
-                // Pega os 4 primeiros produtos da categoria menos o escolhido.
-                where: { category: {id: product.category.id}, id: Not(product.id)},
-                take: 4,
-                relations: { 
-                    images: {image: true},
-                },
-                select: {
-                    id: true,
-                    price: true,
-                    description: true,
-                    name: true,
-                    discount_percent: true,
-                    images: {
-                        id: true,
-                        image: {id: true, imageLink: true}
+                .find({
+                    // Pega os 4 primeiros produtos da categoria menos o escolhido.
+                    where: { category: { id: product.category.id }, id: Not(product.id) },
+                    take: 4,
+                    relations: {
+                        images: { image: true },
                     },
-                    update_date: true,
-                }
-            });
-            
-            return {...product, relatedProducts};
+                    select: {
+                        id: true,
+                        price: true,
+                        description: true,
+                        name: true,
+                        discount_percent: true,
+                        images: {
+                            id: true,
+                            image: { id: true, imageLink: true }
+                        },
+                        update_date: true,
+                    }
+                });
 
-        } catch (err){
+            return { ...product, relatedProducts };
 
-            return {err}
+        } catch (err) {
+
+            return { err }
 
         }
 
@@ -171,13 +172,13 @@ export default class ProductService {
 
             const category = await this.categoryRepository
                 .findOne({ where: { id: product.category } });
-    
+
             if (!category) {
-    
+
                 throw new NotFoundException('Categoria não encontrada');
-    
+
             }
-    
+
             const newProduct = this.productRepository.create({
                 category,
                 description,
@@ -188,13 +189,13 @@ export default class ProductService {
                 // TODO
                 sku: '01010101'
             });
-    
-            await this.productRepository.save(newProduct);
-    
-            return newProduct;
-        } catch (err){
 
-            return {err}
+            await this.productRepository.save(newProduct);
+
+            return newProduct;
+        } catch (err) {
+
+            return { err }
 
         }
 
@@ -207,26 +208,26 @@ export default class ProductService {
             const product = await this.productRepository.findOne({ where: { id: productId } });
 
             if (!product) {
-    
+
                 throw new NotFoundException('Produto não encontrado');
-    
+
             }
-    
+
             if (discount < 0 || discount > 80) {
-    
+
                 throw new BadRequestException("Disconto inválido");
-    
+
             }
-    
+
             product.discount_percent = discount;
-    
+
             await this.productRepository.save(product);
-    
+
             return product;
 
-        } catch (err){
+        } catch (err) {
 
-            return {err}
+            return { err }
 
         }
 

@@ -18,7 +18,7 @@
 
   <h2>Tecnologias Utilizadas</h2>
   <ul>
-    <li><strong>Frontend</strong>: React, CSS / Styled-components, Axios</li>
+    <li><strong>Frontend</strong>: React, CSS / Styled-components, Redux</li>
     <li><strong>Backend</strong>: Node.js, Nest.js, TypeOrm, PostgreSql, Docker</li>
     <li><strong>Geral</strong>: TypeScript</li>
   </ul>

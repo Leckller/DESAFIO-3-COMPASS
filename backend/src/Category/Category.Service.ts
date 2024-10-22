@@ -4,6 +4,7 @@ import CategoryEntity from "./Category.Entity";
 import { Repository } from "typeorm";
 import ImageEntity from "src/Image/Image.Entity";
 import AddCategoryRequestDto from "./Dtos/AddCategory.Request.Dto";
+import ProductEntity from "src/Product/Product.Entity";
 
 @Injectable()
 export default class CategoryService {
@@ -13,19 +14,21 @@ export default class CategoryService {
         @InjectRepository(CategoryEntity)
         private readonly categoryRepository: Repository<CategoryEntity>,
         @InjectRepository(ImageEntity)
-        private readonly imageRepository: Repository<ImageEntity>
+        private readonly imageRepository: Repository<ImageEntity>,
+        @InjectRepository(ProductEntity)
+        private readonly ProductRepository: Repository<ProductEntity>
 
     ) { }
 
     public async getCategories(page: number = 0) {
 
         const categories = await this.categoryRepository
-            .find({ 
+            .find({
                 skip: +page * 10,
                 take: 8,
-                relations: { image: true }, 
+                relations: { image: true },
                 select: {
-                    image: {id: true, imageLink: true},
+                    image: { id: true, imageLink: true },
                     name: true, id: true
                 }
             });
@@ -39,14 +42,14 @@ export default class CategoryService {
         const category = await this.categoryRepository
             .findOne({
                 where: { id },
-                relations: { 
-                    products: {images: {image: true}},
+                relations: {
+                    products: { images: { image: true } },
                     image: true
                 },
                 select: {
                     id: true,
                     name: true,
-                    image: {id: true, imageLink: true},
+                    image: { id: true, imageLink: true },
                     products: {
                         id: true,
                         price: true,
@@ -55,14 +58,16 @@ export default class CategoryService {
                         discount_percent: true,
                         images: {
                             id: true,
-                            image: {id: true, imageLink: true}
+                            image: { id: true, imageLink: true }
                         },
                         update_date: true,
                     }
                 }
             });
 
-        return category;
+        const countProducts = await this.ProductRepository.count({ where: { category: { id } } });
+
+        return { category, countProducts };
 
     }
 
@@ -71,14 +76,14 @@ export default class CategoryService {
         const category = await this.categoryRepository
             .findOne({
                 where: { name },
-                relations: { 
-                    products: {images: {image: true}},
+                relations: {
+                    products: { images: { image: true } },
                     image: true
                 },
                 select: {
                     id: true,
                     name: true,
-                    image: {id: true, imageLink: true},
+                    image: { id: true, imageLink: true },
                     products: {
                         id: true,
                         price: true,
@@ -87,14 +92,16 @@ export default class CategoryService {
                         discount_percent: true,
                         images: {
                             id: true,
-                            image: {id: true, imageLink: true}
+                            image: { id: true, imageLink: true }
                         },
                         update_date: true,
                     }
                 }
             });
 
-        return category;
+        const countProducts = await this.ProductRepository.count({ where: { category: { name } } });
+
+        return { category, countProducts };
 
     }
 
