@@ -35,6 +35,12 @@ function Pages() {
 
   return (
     <StyledSection>
+      <StyledButton
+        disabled={ page === 0 }
+        onClick={ () => dispatch(setPage(page - 1)) }
+      >
+        Previous
+      </StyledButton>
       {pages.length > 1 && (
         pages.map((_, i) => (
           <StyledButton
@@ -46,6 +52,12 @@ function Pages() {
           </StyledButton>
         ))
       )}
+      <StyledButton
+        disabled={ (pages.length - 1) === page }
+        onClick={ () => dispatch(setPage(page + 1)) }
+      >
+        Next
+      </StyledButton>
     </StyledSection>
   );
 }
