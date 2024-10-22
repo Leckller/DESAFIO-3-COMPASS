@@ -66,9 +66,9 @@ function Images() {
   }, [product]);
 
   const handleClick = (img: ProductImage) => {
-    setImages((prev) => (
-      [selectedImage!, ...prev.filter((i) => i.id !== selectedImage?.id)]
-    ));
+    const indexImg = images.findIndex((i) => i.id === img.id);
+    images[indexImg] = selectedImage!;
+    setImages([...images]);
     setSelectedImage(img);
   };
 
