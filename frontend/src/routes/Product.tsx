@@ -5,9 +5,16 @@ import ActPage from '../components/Product/ActPage';
 import { useAppDispatch } from '../hooks/reduxHooks';
 import { fetchProductsDetails } from '../redux/Thunks/ProductDetailsThunk';
 import Images from '../components/Product/Images';
-import Description from '../components/Product/Description';
+import Infos from '../components/Product/Infos/Infos';
 
-const StyledMain = styled.main``;
+const StyledMain = styled.main`
+  section:nth-child(2) {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+`;
 
 function Product() {
   const dispatch = useAppDispatch();
@@ -22,7 +29,7 @@ function Product() {
       <ActPage />
       <section>
         <Images />
-        <Description />
+        <Infos />
       </section>
     </StyledMain>
 

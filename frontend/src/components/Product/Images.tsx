@@ -9,14 +9,13 @@ const StyledImages = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 45%;
   gap: 16px;
   padding: 16px;
-  padding-left: 64px;
   margin-top: 32px;
+  
   ${media.md`
     flex-direction: column;
-    padding-left: 0;
     width: 100%;
   `}
   
@@ -25,10 +24,12 @@ const StyledImages = styled.section`
     flex-direction: column;
     justify-content: center;
     gap: 8px;
-    
+
     ${media.md`
+      flex-wrap: wrap;
       flex-direction: row;  
     `}
+    
     button {
       border: none;
       img {
@@ -44,6 +45,7 @@ const StyledImages = styled.section`
     max-height: 500px;
     height: 100%;
     width: 100%;
+    object-fit: cover;
     ${media.md`
       width: 100%;
     `}
