@@ -29,14 +29,18 @@ function Sizes() {
 
   return (
     <StyledSizes>
-      <p>Size</p>
-      <article>
-        {product.sizes?.map((size) => (
-          <button key={ size.id }>
-            {size.size}
-          </button>
-        ))}
-      </article>
+      {product?.sizes?.length > 0 && (
+        <>
+          <p>Size</p>
+          <article>
+            {product.sizes?.map((size) => (
+              <button key={ size.id }>
+                {size.size}
+              </button>
+            ))}
+          </article>
+        </>
+      )}
     </StyledSizes>
   );
 }

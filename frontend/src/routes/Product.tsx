@@ -30,12 +30,13 @@ const StyledMain = styled.main`
 function Product() {
   const dispatch = useAppDispatch();
   const { product } = useAppSelector((s) => s.Product);
+  const productParams = useParams();
 
   const { id } = useParams();
 
   useEffect(() => {
     dispatch(fetchProductsDetails(+id!));
-  }, []);
+  }, [productParams.id]);
 
   return (
     <StyledMain>
@@ -45,10 +46,12 @@ function Product() {
         <Infos />
       </section>
       <Description />
-      <section>
-        <h2>Related Products</h2>
-        <Products products={ product.relatedProducts } />
-      </section>
+      {product?.relatedProducts?.length > 0 && (
+        <section>
+          <h2>Related Products</h2>
+          <Products products={ product.relatedProducts || [] } />
+        </section>
+      )}
     </StyledMain>
   );
 }
