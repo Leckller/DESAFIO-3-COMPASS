@@ -9,11 +9,10 @@ import { buttonsArticle, titlesNav } from '../../../Utils/Header';
 
 const StyledHeader = styled.header`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     
     ${media.md`
-      flex-wrap: wrap;
       article, nav {
         visibility: hidden;
         position: absolute;

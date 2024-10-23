@@ -4,20 +4,20 @@ import ITheme from '../../../Utils/Themes';
 
 const StyledMenuBtn = styled.button`
   visibility: hidden;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: absolute;
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: ${(p) => (p.theme as ITheme).gold};
-  color: white;
+  background-color: transparent;
   position: relative;
+  width: 30px;
+  margin-right: 8px;
 
   ${media.md`
     position: static;
     visibility: visible;
+    display: flex;
   `};
   
   .bar {
@@ -26,13 +26,13 @@ const StyledMenuBtn = styled.button`
     height: 5px;
     background-color: #333;
     transform-origin: center;
-    animation: ${(p) => (p.color ? 'cross 2s forwards' : 'cross 2s')};
+    animation: ${(p) => (p.color ? 'uncross 1s forwards' : 'cross 1s forwards')};
   }
 
   .bar:nth-child(2) {
     transform: rotate(90deg);
     transform: translateY(32px);
-    animation: cross-2 2s forwards;
+    animation: ${(p) => (p.color ? 'uncross-2 1s forwards' : 'cross-2 1s forwards')};
   }
   
   @keyframes cross {
@@ -49,7 +49,25 @@ const StyledMenuBtn = styled.button`
       transform: rotate(-45deg);
     }
     100% {
+      transform: rotate(0deg) translateY(8px);
+    }
+  }
+  
+  @keyframes uncross-2 {
+    0% {
       transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-45deg);
+    }
+  }
+
+  @keyframes uncross {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(45deg);
     }
   }
 `;
@@ -62,7 +80,6 @@ function Menu({ menu, setMenu }: { menu: boolean,
       className="container"
       onClick={ () => setMenu((p) => !p) }
     >
-      {menu ? 'X' : '='}
       <div className="bar" />
       <div className="bar" />
     </StyledMenuBtn>
