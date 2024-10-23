@@ -18,13 +18,20 @@ const StyledMain = styled.main`
 `;
 
 function Shop() {
-  const { Product: { products }, Filter: { show, page } } = useAppSelector((s) => s);
+  const {
+    Product: { products, countProducts },
+    Filter: { show, page },
+  } = useAppSelector((s) => s);
 
   return (
     <StyledMain>
       <Banner />
       <Filter />
-      <Products products={ products.slice(show * page, (show * page) + show) } />
+      <Products
+        products={
+          products.slice(show >= countProducts ? 0 : show * page, (show * page) + show)
+        }
+      />
       <Pages />
     </StyledMain>
 

@@ -16,7 +16,6 @@ export const CartSlice = createSlice({
     editProductInCart(state, { payload }: PayloadAction<IProductCart>) {
       const productIndex = state.cart
         .findIndex(({ product: { id } }) => id === payload.product.id);
-      console.log(productIndex);
       if (productIndex < 0) {
         state.cart = [...state.cart, payload];
         return;
