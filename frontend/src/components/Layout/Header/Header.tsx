@@ -1,40 +1,62 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import Logo from './Logo';
 import Nav from './Nav';
 import Article from './Article';
-import { Cart, Heart, Lupa, User } from '../../../Assets/Header/index';
+import media from '../../../Utils/media';
+import Menu from './Menu';
+import { buttonsArticle, titlesNav } from '../../../Utils/Header';
 
 const StyledHeader = styled.header`
     display: flex;
-    //Provisorio
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
+    
+    ${media.md`
+      flex-wrap: wrap;
+      article, nav {
+        visibility: hidden;
+        position: absolute;
+      }
+    `}
+`;
+
+const StyledMenuSec = styled.section`
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  ${media.md`
+    position: static;
+    visibility: visible;
+  `};
 `;
 
 function Header() {
-  const buttons = [
-    { img: User, route: 'user' },
-    { img: Lupa, route: 'search' },
-    { img: Heart, route: 'likes' },
-    { img: Cart, route: 'cart' },
-  ];
+  const [menu, setMenu] = useState(false);
 
   return (
-    <StyledHeader>
+    <>
+      <StyledHeader>
 
-      <Logo />
-      <Nav
-        titles={ [
-          { title: 'Home', for: '' },
-          { title: 'Shop', for: 'shop' },
-          { title: 'About', for: 'about' },
-          { title: 'Contact', for: 'contact' },
-        ] }
-      />
-      <Article buttons={ buttons } />
+        <Logo />
+        <Nav titles={ titlesNav } />
+        <Article buttons={ buttonsArticle } />
 
-    </StyledHeader>
+        <Menu setMenu={ setMenu } menu={ menu } />
+
+      </StyledHeader>
+      {
+        menu && (
+          <StyledMenuSec>
+            <Nav titles={ titlesNav } />
+            <Article buttons={ buttonsArticle } />
+          </StyledMenuSec>
+        )
+      }
+    </>
   );
 }
 

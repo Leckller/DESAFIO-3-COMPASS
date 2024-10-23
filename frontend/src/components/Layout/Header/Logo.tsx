@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const StyledLogo = styled.label`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   img {
-    width: 80px;
+    max-width: 80px;
     object-fit: contain
   }
 `;
