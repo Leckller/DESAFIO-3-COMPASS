@@ -71,17 +71,20 @@ export default class CategoryService {
 
     }
 
-    public async getCategoryProductsByName(name: string, page: number = 0) {
+    public async getCategoryProductsByName(name: string, page: number = 0, show: number = 2) {
 
+        // Paginação feita para pegar de 2 em 2 produtos por pagina
         const products = await this.ProductRepository.find({
             where: { category: { name } },
-            skip: page * 2,
-            take: 2
+            relations: { images: { image: true } },
+            skip: +page * show,
+            take: show
         });
 
+        // Contagem de produtos
         const countProducts = await this.ProductRepository.count({ where: { category: { name } } });
 
-        return { products, countProducts };
+        return { products, countProducts, categoryName: name };
 
     }
 

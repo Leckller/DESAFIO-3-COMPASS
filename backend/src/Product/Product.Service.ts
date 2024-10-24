@@ -17,7 +17,7 @@ export default class ProductService {
     ) { }
 
 
-    public async getProducts(page: number = 0) {
+    public async getProducts(page: number = 0, show: number = 8) {
         // Retorna os produtos apenas com o relacionamento de imagens
         // Metodo recomentado para páginas sem descrições ( Home e Shop )
         try {
@@ -25,8 +25,8 @@ export default class ProductService {
             const [products, count] = await this.productRepository
                 // Pega 8 itens e conta a quantidade total de itens
                 .findAndCount({
-                    skip: +page * 10,
-                    take: 8,
+                    skip: +page * show,
+                    take: show,
                     relations: {
                         images: { image: true },
                     },

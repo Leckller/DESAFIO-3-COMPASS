@@ -23,10 +23,10 @@ export default class CategoryController {
 
     }
 
-    @Get('type/:name')
-    public async getCategoryByName(@Param('name') name: string, @Param('page') page: string) {
+    @Get('type/:name/:page/:show')
+    public async getCategoryByName(@Param() { name, page, show }) {
 
-        return await this.categoryService.getCategoryProductsByName(name, +page);
+        return await this.categoryService.getCategoryProductsByName(name, +page, show);
 
     }
 
