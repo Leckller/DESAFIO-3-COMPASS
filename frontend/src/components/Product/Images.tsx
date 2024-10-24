@@ -31,9 +31,14 @@ const StyledImages = styled.section`
     
     button {
       border: none;
+      background-color: transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      width: 76px;
+      height: 80px;
       img {
-        width: 76px;
-        height: 80px;
+        width: 100%;
+        height: 100%;
       }
     }
   }
@@ -45,6 +50,7 @@ const StyledImages = styled.section`
     height: 100%;
     width: 100%;
     object-fit: cover;
+    border-radius: 8px;
     ${media.md`
       width: 100%;
     `}
