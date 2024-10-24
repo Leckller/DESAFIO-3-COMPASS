@@ -17,7 +17,6 @@ export const FilterSlice = createSlice({
   name: 'Filter',
   initialState,
   reducers: {
-    setSort(state, action: PayloadAction<ISort>) { },
     setShow(state, action: PayloadAction<number>) {
       state.show = action.payload;
     },
@@ -28,6 +27,6 @@ export const FilterSlice = createSlice({
   },
 });
 
-export const { setShow, setSort, setPage } = FilterSlice.actions;
+export const { setShow, setPage } = FilterSlice.actions;
 
 export default FilterSlice.reducer;

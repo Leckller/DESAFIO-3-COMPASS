@@ -58,7 +58,7 @@ export const ProductsSlice = createSlice({
       })
       .addCase(
         fetchCategoryProducts.fulfilled,
-        (state, { payload: { products, countProducts, categoryName } }) => {
+        (state, { payload: { products, countProducts } }) => {
           state.loading = false;
           state.countProducts = countProducts;
           state.products = products;

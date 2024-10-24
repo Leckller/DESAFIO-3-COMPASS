@@ -5,6 +5,8 @@ import ITheme from '../../Utils/Themes';
 import { setShow } from '../../redux/Reducers/Filter';
 import { sortProducts } from '../../redux/Reducers/Products';
 import { ISort } from '../../types/Sort.Type';
+import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
+import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
 
 const StyledFilter = styled.section`
     display: flex;
@@ -41,7 +43,7 @@ const StyledFilter = styled.section`
 function Filter() {
   const { category } = useParams();
   const dispatch = useAppDispatch();
-  const { show } = useAppSelector((s) => s.Filter);
+  const { Filter: { show, page }, Product: { countProducts } } = useAppSelector((s) => s);
 
   return (
     <StyledFilter>
@@ -65,11 +67,18 @@ function Filter() {
         <label>
           Show
           <input
-            onChange={({ target: { value } }) => dispatch(setShow(+value))}
+            onChange={({ target: { value } }) => {
+              dispatch(setShow(+value));
+              if (category) {
+                dispatch(fetchCategoryProducts({ category, page, show: +value }))
+              } else {
+                dispatch(fetchProducts({ page, show: +value }));
+              }
+            }}
             type="number"
             defaultValue={show}
             min={1}
-            max={24}
+            max={countProducts || 8}
           />
         </label>
         <label>

@@ -23,17 +23,16 @@ const StyledMain = styled.main`
 
 function Shop() {
   const {
-    Product: { products, countProducts },
-    Filter: { show, page },
+    Product: { products },
   } = useAppSelector((s) => s);
   const dispatch = useAppDispatch();
   const { category } = useParams();
 
   useEffect(() => {
     if (category) {
-      dispatch(fetchCategoryProducts({ category, page: 0 }));
+      dispatch(fetchCategoryProducts({ category, page: 0, show: 8 }));
       return;
-    } dispatch(fetchProducts(0));
+    } dispatch(fetchProducts({ page: 0, show: 8 }));
   }, []);
 
 
@@ -43,8 +42,7 @@ function Shop() {
       <Filter />
       <Products
         products={
-          products.slice(show >= countProducts
-            ? 0 : show * page, (show * page) + show)
+          products
         }
       />
       <Pages />

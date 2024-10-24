@@ -5,6 +5,7 @@ import ITheme from '../../Utils/Themes';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { setPage } from '../../redux/Reducers/Filter';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
+import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
 
 const StyledSection = styled.section`
   display: flex;
@@ -32,27 +33,42 @@ function Pages() {
 
   const [pages, setPages] = useState(['']);
   const dispatch = useAppDispatch();
+  const { category } = useParams();
 
   useEffect(() => {
-    const calc = Math.ceil((+countProducts / +show));
+    const calc = Math.ceil((+countProducts / show));
     const pagesArray = new Array(calc).fill('undefined');
     setPages(pagesArray);
   }, [countProducts, show]);
 
   return (
     <StyledSection>
-      {pages.length > 1 && (
+      {countProducts > show && (
         <>
           <StyledButton
             disabled={page === 0}
-            onClick={() => dispatch(setPage(page - 1))}
+            onClick={() => {
+              dispatch(setPage(page - 1));
+              if (category) {
+                dispatch(fetchCategoryProducts({ category, page: page - 1, show }))
+              } else {
+                dispatch(fetchProducts({ page: page - 1, show }));
+              }
+            }}
           >
             Previous
           </StyledButton>
           {pages.map((_, i) => (
             <StyledButton
               color={page === i ? '1' : '0'}
-              onClick={() => dispatch(setPage(i))}
+              onClick={() => {
+                dispatch(setPage(i));
+                if (category) {
+                  dispatch(fetchCategoryProducts({ category, page: i, show }))
+                } else {
+                  dispatch(fetchProducts({ page: i, show }));
+                }
+              }}
               key={i}
             >
               {i + 1}
@@ -62,6 +78,11 @@ function Pages() {
             disabled={(pages.length - 1) === page}
             onClick={() => {
               dispatch(setPage(page + 1));
+              if (category) {
+                dispatch(fetchCategoryProducts({ category, page: page + 1, show }))
+              } else {
+                dispatch(fetchProducts({ page: page + 1, show }));
+              }
             }}
           >
             Next
