@@ -9,10 +9,11 @@ const StyledDescription = styled.section`
   align-items: center;
   gap: 32px;
   margin-top: 64px;
-  padding: 64px;
+  padding: 32px;
 
   article {
     display: flex;
+    flex-wrap: wrap;
     gap: 32px;
     justify-content: center;
     align-items: center;
@@ -24,7 +25,7 @@ const StyledDescription = styled.section`
   p {
     color: ${(p) => (p.theme as ITheme).TextColor_sm};
     max-width: 1200px;
-    word-break: break-all
+    word-break: break-all;
   }
 `;
 

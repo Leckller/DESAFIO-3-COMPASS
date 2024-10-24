@@ -13,6 +13,7 @@ const StyledInfos = styled.section`
   justify-content: start;
   align-items: start;
   width: 45%;
+  padding: 16px;
   flex-direction: column;
   gap: 16px;
 
@@ -20,7 +21,6 @@ const StyledInfos = styled.section`
     width: 100%;
     align-items: center;
   `}
-
   button {
     border: none;
     background-color: transparent;

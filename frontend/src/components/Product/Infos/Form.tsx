@@ -5,10 +5,12 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHooks';
 import { editProductInCart } from '../../../redux/Reducers/Cart';
 
 const StyledForm = styled.form`
+  border-bottom: 1px solid ${(p) => (p.theme as ITheme).TextColor_sm};
+  justify-content: center;
+  padding-bottom: 32px;
+  flex-wrap: wrap;
   display: flex;
   gap: 16px;
-  padding-bottom: 32px;
-  border-bottom: 1px solid ${(p) => (p.theme as ITheme).TextColor_sm};
 
   section {
     display: flex;

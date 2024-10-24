@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import Filter from '../components/Shop/Filter';
 import Products from '../components/Home/Products/Products';
 import Banner from '../components/Shop/Banner';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import Pages from '../components/Shop/Pages';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { fetchCategoryProducts } from '../redux/Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../redux/Thunks/ProductsThunk';
 
@@ -35,14 +35,13 @@ function Shop() {
     } dispatch(fetchProducts({ page: 0, show: 8 }));
   }, []);
 
-
   return (
     <StyledMain>
       <Banner />
       <Filter />
       <Products
         products={
-          products
+        products
         }
       />
       <Pages />

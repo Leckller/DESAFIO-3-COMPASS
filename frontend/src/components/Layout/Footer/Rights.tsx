@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const StyledRights = styled.section`
   section {
-    padding:  64px;
+    padding:  32px;
   }
 `;
 

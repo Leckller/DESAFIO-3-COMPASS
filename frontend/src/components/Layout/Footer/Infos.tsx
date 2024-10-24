@@ -4,10 +4,14 @@ import media from '../../../Utils/media';
 
 const StyledInfos = styled.article`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
   padding: 32px;
   gap: 16px;
+
+  ${media.sm`
+    justify-content: start;
+  `}
 
   h3 {
     color: ${(p) => (p.theme as ITheme).TextColor_sm};
@@ -23,16 +27,14 @@ const StyledInfos = styled.article`
   article:nth-child(1) {
     p {
       color: ${(p) => (p.theme as ITheme).TextColor_sm};
-      ${media.sm`
-        width: 100%;
-      `};
-      width: 50%;
     }
   }
 
   article {
     display: flex;
     flex-direction: column;
+    min-width: 100px;
+    max-width: 300px;
     gap: 16px;
   }
 
