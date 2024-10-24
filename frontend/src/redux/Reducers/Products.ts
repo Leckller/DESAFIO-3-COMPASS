@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/Product.Type';
-import { fetchCategoryProducts } from '../Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../Thunks/ProductsThunk';
 import { ICategory } from '../../types/Category.Type';
 import { fetchCategories } from '../Thunks/CategoriesThunk';
@@ -84,19 +83,6 @@ export const ProductsSlice = createSlice({
         (state, action) => {
           state.loading = false;
           state.categories = action.payload;
-        },
-      );
-
-    builder
-      .addCase(fetchCategoryProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(
-        fetchCategoryProducts.fulfilled,
-        (state, action) => {
-          state.loading = false;
-          state.products = action.payload.category.products;
-          state.countProducts = action.payload.countProducts;
         },
       );
   },

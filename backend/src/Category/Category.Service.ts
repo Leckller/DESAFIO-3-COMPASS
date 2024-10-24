@@ -71,37 +71,17 @@ export default class CategoryService {
 
     }
 
-    public async getCategoryByName(name: string) {
+    public async getCategoryProductsByName(name: string, page: number = 0) {
 
-        const category = await this.categoryRepository
-            .findOne({
-                where: { name },
-                relations: {
-                    products: { images: { image: true } },
-                    image: true
-                },
-                select: {
-                    id: true,
-                    name: true,
-                    image: { id: true, imageLink: true },
-                    products: {
-                        id: true,
-                        price: true,
-                        description: true,
-                        name: true,
-                        discount_percent: true,
-                        images: {
-                            id: true,
-                            image: { id: true, imageLink: true }
-                        },
-                        update_date: true,
-                    }
-                }
-            });
+        const products = await this.ProductRepository.find({
+            where: { category: { name } },
+            skip: page * 2,
+            take: 2
+        });
 
         const countProducts = await this.ProductRepository.count({ where: { category: { name } } });
 
-        return { category, countProducts };
+        return { products, countProducts };
 
     }
 

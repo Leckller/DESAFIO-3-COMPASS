@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 import ITheme from '../../Utils/Themes';
 import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
@@ -44,10 +44,11 @@ const StyledFilter = styled.section`
 function Filter() {
   const { category } = useParams();
   const dispatch = useAppDispatch();
+  const { show } = useAppSelector((s) => s.Filter);
 
   useEffect(() => {
     if (category) {
-      dispatch(fetchCategoryProducts(category));
+      dispatch(fetchCategoryProducts({ category, page: 0 }));
       return;
     } dispatch(fetchProducts(0));
   }, []);
@@ -76,7 +77,7 @@ function Filter() {
           <input
             onChange={ ({ target: { value } }) => dispatch(setShow(+value)) }
             type="number"
-            defaultValue={ 8 }
+            defaultValue={ show }
             min={ 1 }
             max={ 24 }
           />

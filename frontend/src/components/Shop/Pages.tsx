@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ITheme from '../../Utils/Themes';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { setPage } from '../../redux/Reducers/Filter';
+import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 
 const StyledSection = styled.section`
   display: flex;
@@ -23,9 +25,12 @@ const StyledButton = styled.button`
 `;
 
 function Pages() {
-  const { Product: { countProducts }, Filter: { show, page } } = useAppSelector((s) => s);
+  const {
+    Filter: { show, page, categoryProducts, countProducts },
+  } = useAppSelector((s) => s);
   const [pages, setPages] = useState(['']);
   const dispatch = useAppDispatch();
+  const { category } = useParams();
 
   useEffect(() => {
     const calc = Math.ceil((+countProducts / +show));
@@ -54,7 +59,15 @@ function Pages() {
           ))}
           <StyledButton
             disabled={ (pages.length - 1) === page }
-            onClick={ () => dispatch(setPage(page + 1)) }
+            onClick={ () => {
+              dispatch(setPage(page + 1));
+              if (countProducts < categoryProducts.length) {
+                if (category) {
+                  dispatch(fetchCategoryProducts({ category, page }));
+                }
+                console.log('a');
+              }
+            } }
           >
             Next
           </StyledButton>
