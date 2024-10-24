@@ -1,22 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StyledNav = styled.nav`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 30px;
-  align-items: center;
-
-`;
-
-const StyledButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-`;
-
-const StyledText = styled.h2``;
+import { StyledButtonNav, StyledNav } from './Styles/Nav';
 
 function Nav({ titles }: { titles: { title: string, for: string }[] }) {
   const navigate = useNavigate();
@@ -25,14 +8,14 @@ function Nav({ titles }: { titles: { title: string, for: string }[] }) {
     <StyledNav>
 
       {titles.map((t) => (
-        <StyledButton
+        <StyledButtonNav
           key={ t.title }
           onClick={ () => navigate(t.for) }
         >
-          <StyledText>
+          <h2>
             {t.title}
-          </StyledText>
-        </StyledButton>
+          </h2>
+        </StyledButtonNav>
       ))}
 
     </StyledNav>

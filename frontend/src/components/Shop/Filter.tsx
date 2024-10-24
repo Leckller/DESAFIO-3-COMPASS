@@ -30,7 +30,8 @@ function Filter() {
           <img src={ rotateImg } alt="rotate" />
         </button>
         <p>
-          {`Showing 1–${show} of ${countProducts} results`}
+          {`Showing 1–${show > countProducts
+            ? countProducts : show} of ${countProducts} results`}
         </p>
       </section>
 
