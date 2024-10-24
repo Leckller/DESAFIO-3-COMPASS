@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Product from './Product';
 import ITheme from '../../../Utils/Themes';
 import media from '../../../Utils/media';
@@ -35,7 +36,9 @@ const StyledSection = styled.section`
   `}
 `;
 
-function Products({ products }: { products: IProduct[] }) {
+function Products({ products, more = '' }: { products: IProduct[], more?: string }) {
+  const navigate = useNavigate();
+
   return (
 
     <StyledSection>
@@ -44,6 +47,11 @@ function Products({ products }: { products: IProduct[] }) {
           <Product product={ product } key={ product.id } />
         ))}
       </section>
+      {more && (
+        <button onClick={ () => navigate(`/${more}/0`) }>
+          Show More
+        </button>
+      )}
     </StyledSection>
 
   );

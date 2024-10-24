@@ -20,7 +20,7 @@ function Home() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts(0));
+    dispatch(fetchProducts({ page: 0, show: 8 }));
   }, []);
 
   return (
@@ -31,10 +31,7 @@ function Home() {
       <h2>
         Our Products
       </h2>
-      <Products products={products} />
-      <button>
-        Show More
-      </button>
+      <Products products={ products } more="shop" />
     </StyledMain>
   );
 }

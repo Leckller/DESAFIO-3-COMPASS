@@ -49,7 +49,10 @@ function Product() {
       {product?.relatedProducts?.length > 0 && (
         <section>
           <h2>Related Products</h2>
-          <Products products={ product.relatedProducts || [] } />
+          <Products
+            products={ product.relatedProducts || [] }
+            more={ `shop/${product.category.name}` }
+          />
         </section>
       )}
     </StyledMain>
