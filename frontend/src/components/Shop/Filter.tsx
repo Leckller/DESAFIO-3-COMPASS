@@ -6,6 +6,9 @@ import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
 import { StyledFilter } from './Styles/Filter';
+import rotateImg from '../../Assets/Filter/rotate.svg';
+import filterImg from '../../Assets/Filter/filter.svg';
+import layoutFilterImg from '../../Assets/Filter/LayoutFilter.svg';
 
 function Filter() {
   const { category } = useParams();
@@ -17,17 +20,18 @@ function Filter() {
 
       <section>
         <button>
-          <img src="" alt="Filter" />
+          <img src={ filterImg } alt="Filter" />
           Filter
         </button>
         <button>
-          a
-          <img src="" alt="" />
+          <img src={ layoutFilterImg } alt="layout" />
         </button>
         <button>
-          a
-          <img src="" alt="" />
+          <img src={ rotateImg } alt="rotate" />
         </button>
+        <p>
+          {`Showing 1–${show} of ${countProducts} results`}
+        </p>
       </section>
 
       <section>

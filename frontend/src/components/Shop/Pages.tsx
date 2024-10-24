@@ -30,7 +30,7 @@ function Pages() {
             <Button
               selected={ page === i }
               key={ i }
-              content={ `${i}` }
+              content={ `${i + 1}` }
               disabled={ false }
               page={ i }
             />
