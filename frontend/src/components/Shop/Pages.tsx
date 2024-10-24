@@ -26,11 +26,12 @@ const StyledButton = styled.button`
 
 function Pages() {
   const {
-    Filter: { show, page, categoryProducts, countProducts },
+    Product: { countProducts },
+    Filter: { show, page },
   } = useAppSelector((s) => s);
+
   const [pages, setPages] = useState(['']);
   const dispatch = useAppDispatch();
-  const { category } = useParams();
 
   useEffect(() => {
     const calc = Math.ceil((+countProducts / +show));
@@ -43,31 +44,25 @@ function Pages() {
       {pages.length > 1 && (
         <>
           <StyledButton
-            disabled={ page === 0 }
-            onClick={ () => dispatch(setPage(page - 1)) }
+            disabled={page === 0}
+            onClick={() => dispatch(setPage(page - 1))}
           >
             Previous
           </StyledButton>
           {pages.map((_, i) => (
             <StyledButton
-              color={ page === i ? '1' : '0' }
-              onClick={ () => dispatch(setPage(i)) }
-              key={ i }
+              color={page === i ? '1' : '0'}
+              onClick={() => dispatch(setPage(i))}
+              key={i}
             >
               {i + 1}
             </StyledButton>
           ))}
           <StyledButton
-            disabled={ (pages.length - 1) === page }
-            onClick={ () => {
+            disabled={(pages.length - 1) === page}
+            onClick={() => {
               dispatch(setPage(page + 1));
-              if (countProducts < categoryProducts.length) {
-                if (category) {
-                  dispatch(fetchCategoryProducts({ category, page }));
-                }
-                console.log('a');
-              }
-            } }
+            }}
           >
             Next
           </StyledButton>

@@ -24,9 +24,9 @@ function CategoryButton({ category }: { category: ICategory }) {
   const navigate = useNavigate();
 
   return (
-    <StyledButton onClick={ () => navigate(`home/shop/${category.name}`) }>
+    <StyledButton onClick={() => navigate(`home/shop/${category.name}/0`)}>
 
-      <img src={ category.image.imageLink } alt="category" />
+      <img src={category.image.imageLink} alt="category" />
       <h3>{category.name}</h3>
 
     </StyledButton>

@@ -6,8 +6,10 @@ import { fetchCategories } from '../Thunks/CategoriesThunk';
 import { fetchProductsDetails } from '../Thunks/ProductDetailsThunk';
 import { IProductDetails } from '../../types/ProductDetails.Type';
 import { ISort } from '../../types/Sort.Type';
+import { fetchCategoryProducts } from '../Thunks/CategoryProductsThunk';
 
 interface ProductsState {
+  // Objeto com vários produtos de diferentes categorias
   products: IProduct[],
   countProducts: number,
   product: IProductDetails,
@@ -27,19 +29,20 @@ export const ProductsSlice = createSlice({
   name: 'Products',
   initialState,
   reducers: {
-    sortProducts(state, action: PayloadAction<ISort>) {
-      switch (action.payload) {
+    sortProducts(state, action: PayloadAction<{ category: string, sort: ISort }>) {
+      // Organiza os produtos de uma categoria definida
+      switch (action.payload.sort) {
         case 'lowest':
           state.products = state.products
             .sort((a, b) => a.price - b.price);
           break;
         case 'highest':
           state.products = state.products
-            .sort((a, b) => b.price - a.price);
+            .sort((a, b) => b.price - a.price)
           break;
         case 'discount':
           state.products = state.products
-            .sort((a, b) => b.discount_percent - a.discount_percent);
+            .sort((a, b) => b.discount_percent - a.discount_percent)
           break;
         case 'default':
           break;
@@ -49,6 +52,19 @@ export const ProductsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategoryProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchCategoryProducts.fulfilled,
+        (state, { payload: { products, countProducts, categoryName } }) => {
+          state.loading = false;
+          state.countProducts = countProducts;
+          state.products = products;
+        },
+      );
+
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
@@ -86,6 +102,7 @@ export const ProductsSlice = createSlice({
         },
       );
   },
+
 });
 
 export const { sortProducts } = ProductsSlice.actions;

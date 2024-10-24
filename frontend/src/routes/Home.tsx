@@ -31,7 +31,7 @@ function Home() {
       <h2>
         Our Products
       </h2>
-      <Products products={ products } />
+      <Products products={products} />
       <button>
         Show More
       </button>

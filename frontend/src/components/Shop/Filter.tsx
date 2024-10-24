@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 import ITheme from '../../Utils/Themes';
-import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
 import { setShow } from '../../redux/Reducers/Filter';
 import { sortProducts } from '../../redux/Reducers/Products';
 import { ISort } from '../../types/Sort.Type';
@@ -46,13 +43,6 @@ function Filter() {
   const dispatch = useAppDispatch();
   const { show } = useAppSelector((s) => s.Filter);
 
-  useEffect(() => {
-    if (category) {
-      dispatch(fetchCategoryProducts({ category, page: 0 }));
-      return;
-    } dispatch(fetchProducts(0));
-  }, []);
-
   return (
     <StyledFilter>
 
@@ -75,17 +65,17 @@ function Filter() {
         <label>
           Show
           <input
-            onChange={ ({ target: { value } }) => dispatch(setShow(+value)) }
+            onChange={({ target: { value } }) => dispatch(setShow(+value))}
             type="number"
-            defaultValue={ show }
-            min={ 1 }
-            max={ 24 }
+            defaultValue={show}
+            min={1}
+            max={24}
           />
         </label>
         <label>
           Sort by
           <select
-            onChange={ ({ target: { value } }) => dispatch(sortProducts(value as ISort)) }
+            onChange={({ target: { value } }) => dispatch(sortProducts({ category: category ? category : 'products', sort: value as ISort }))}
           >
             <option value="default">Default</option>
             <option value="lowest">Lowest price</option>
