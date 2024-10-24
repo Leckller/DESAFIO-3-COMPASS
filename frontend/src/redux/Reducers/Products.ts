@@ -29,20 +29,20 @@ export const ProductsSlice = createSlice({
   name: 'Products',
   initialState,
   reducers: {
-    sortProducts(state, action: PayloadAction<{ category: string, sort: ISort }>) {
+    sortProducts(state, action: PayloadAction<ISort>) {
       // Organiza os produtos de uma categoria definida
-      switch (action.payload.sort) {
+      switch (action.payload) {
         case 'lowest':
           state.products = state.products
             .sort((a, b) => a.price - b.price);
           break;
         case 'highest':
           state.products = state.products
-            .sort((a, b) => b.price - a.price)
+            .sort((a, b) => b.price - a.price);
           break;
         case 'discount':
           state.products = state.products
-            .sort((a, b) => b.discount_percent - a.discount_percent)
+            .sort((a, b) => b.discount_percent - a.discount_percent);
           break;
         case 'default':
           break;

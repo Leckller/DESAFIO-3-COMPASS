@@ -1,44 +1,11 @@
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import ITheme from '../../Utils/Themes';
 import { setShow } from '../../redux/Reducers/Filter';
 import { sortProducts } from '../../redux/Reducers/Products';
 import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
-
-const StyledFilter = styled.section`
-    display: flex;
-    flex-direction: row !important;
-    justify-content: space-between;
-    background-color: ${(p) => (p.theme as ITheme).Gold_md} !important;
-    padding: 16px;
-
-    section {
-      display: flex;
-      flex-direction: row !important;
-      gap: 16px;
-
-      label {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        align-items: center;
-        font-weight: 700;
-
-        input {
-          width: 62px;
-        }
-
-        input, select {
-          outline: none;
-          border: none;
-          padding: 8px;
-        }
-      }
-    }
-  `;
+import { StyledFilter } from './Styles/Filter';
 
 function Filter() {
   const { category } = useParams();
@@ -67,24 +34,28 @@ function Filter() {
         <label>
           Show
           <input
-            onChange={({ target: { value } }) => {
+            onChange={ ({ target: { value } }) => {
               dispatch(setShow(+value));
               if (category) {
-                dispatch(fetchCategoryProducts({ category, page, show: +value }))
+                dispatch(fetchCategoryProducts({ category, page, show: +value }));
               } else {
                 dispatch(fetchProducts({ page, show: +value }));
               }
-            }}
+            } }
             type="number"
-            defaultValue={show}
-            min={1}
-            max={countProducts || 8}
+            defaultValue={ show }
+            min={ 1 }
+            max={ countProducts || 8 }
           />
         </label>
         <label>
           Sort by
           <select
-            onChange={({ target: { value } }) => dispatch(sortProducts({ category: category ? category : 'products', sort: value as ISort }))}
+            onChange={ ({ target: { value } }) => {
+              dispatch(
+                sortProducts(value as ISort),
+              );
+            } }
           >
             <option value="default">Default</option>
             <option value="lowest">Lowest price</option>
