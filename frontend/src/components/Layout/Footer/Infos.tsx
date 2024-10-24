@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ITheme from '../../../Utils/Themes';
+import media from '../../../Utils/media';
 
 const StyledInfos = styled.article`
   display: flex;
@@ -19,10 +20,48 @@ const StyledInfos = styled.article`
     text-decoration: none;
   }
 
+  article:nth-child(1) {
+    p {
+      color: ${(p) => (p.theme as ITheme).TextColor_sm};
+      ${media.sm`
+        width: 100%;
+      `};
+      width: 50%;
+    }
+  }
+
   article {
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    div {
+      display: flex;
+      gap: 8px;
+
+      ${media.xs`
+        flex-wrap: wrap;
+      `}
+
+      input {
+        border: none;
+        outline: none;
+        width: 100%;
+        border-bottom: solid 1px black;
+        max-width: 250px;
+      }
+
+      button {
+        border: none;
+        background-color: transparent;
+        border-bottom: solid 1px black;
+      }
+    }
   }
 `;
 
@@ -53,11 +92,13 @@ function Infos() {
         <a href="/info/policies">Privacy Policies</a>
       </article>
 
-      <article>
+      <form onSubmit={ (e) => e.preventDefault() }>
         <h3>Newsletter</h3>
-        <input type="text" placeholder="Enter Your Email Address" />
-        <button>SUBSCRIBE</button>
-      </article>
+        <div>
+          <input type="text" placeholder="Enter Your Email Address" />
+          <button>SUBSCRIBE</button>
+        </div>
+      </form>
 
     </StyledInfos>
   );

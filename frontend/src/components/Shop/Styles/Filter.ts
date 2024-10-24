@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ITheme from '../../../Utils/Themes';
+import media from '../../../Utils/media';
 
 export const StyledFilter = styled.section`
     display: flex;
@@ -12,7 +13,6 @@ export const StyledFilter = styled.section`
 
     section:nth-child(1) {
       display: flex;
-      justify-content: center;
       align-items: center;
       button {
         display: flex;
@@ -27,8 +27,13 @@ export const StyledFilter = styled.section`
     section {
       display: flex;
       flex-direction: row !important;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 16px;
+
+      ${media.md`
+        width: 100%;
+      `}
 
       label {
         display: flex;

@@ -8,7 +8,7 @@ import { IProduct } from '../../../types/Product.Type';
 const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
   justify-content: center;
   align-items: center;
 
@@ -48,7 +48,7 @@ function Products({ products, more = '' }: { products: IProduct[], more?: string
         ))}
       </section>
       {more && (
-        <button onClick={ () => navigate(`/${more}/0`) }>
+        <button onClick={ () => navigate(`/${more}`) }>
           Show More
         </button>
       )}

@@ -51,7 +51,7 @@ function Product() {
           <h2>Related Products</h2>
           <Products
             products={ product.relatedProducts || [] }
-            more={ `shop/${product.category.name}` }
+            more={ `shop/${product.category.name}/0` }
           />
         </section>
       )}
