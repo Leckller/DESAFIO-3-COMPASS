@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { setShow } from '../../redux/Reducers/Filter';
+import { setPage, setShow } from '../../redux/Reducers/Filter';
 import { sortProducts } from '../../redux/Reducers/Products';
 import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
@@ -41,10 +41,13 @@ function Filter() {
           <input
             onChange={ ({ target: { value } }) => {
               dispatch(setShow(+value));
+              const limitPage = +value >= countProducts ? 0 : page;
               if (category) {
-                dispatch(fetchCategoryProducts({ category, page, show: +value }));
+                dispatch(fetchCategoryProducts({
+                  category, page: limitPage, show: +value,
+                }));
               } else {
-                dispatch(fetchProducts({ page, show: +value }));
+                dispatch(fetchProducts({ page: limitPage, show: +value }));
               }
             } }
             type="number"
