@@ -5,6 +5,7 @@ export const StyledArticle = styled.article`
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 30px;
+  padding: 16px;
   align-items: center;
 `;
 

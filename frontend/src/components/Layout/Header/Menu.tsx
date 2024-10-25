@@ -4,7 +4,7 @@ function Menu({ menu, setMenu }: { menu: boolean,
   setMenu: React.Dispatch<React.SetStateAction<boolean>> }) {
   return (
     <StyledMenuBtn
-      color={ menu as unknown as string }
+      selected={ menu }
       className="container"
       onClick={ () => setMenu((p) => !p) }
     >

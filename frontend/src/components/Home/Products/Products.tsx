@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Product from './Product';
 import { IProduct } from '../../../types/Product.Type';
 import { StyledProducts } from './Styles/Products';
+import Empty from './Empty';
 
 function Products({ products, more = '' }: { products: IProduct[], more?: string }) {
   const navigate = useNavigate();
@@ -9,11 +10,15 @@ function Products({ products, more = '' }: { products: IProduct[], more?: string
   return (
 
     <StyledProducts>
-      <section>
-        {products.length > 0 && products.map((product) => (
-          <Product product={ product } key={ product.id } />
-        ))}
-      </section>
+      {products.length > 0 ? (
+        <section>
+          {products.map((product) => (
+            <Product product={ product } key={ product.id } />
+          ))}
+        </section>
+      ) : (
+        <Empty />
+      )}
       {more && (
         <button onClick={ () => navigate(`/${more}`) }>
           Show More
