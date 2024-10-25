@@ -1,14 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import ITheme from '../../Utils/Themes';
-
-const StyledSection = styled.section`
-  display: flex;
-  background-color: ${(p) => (p.theme as ITheme).Gold_sm};
-  gap: 8px;
-  padding: 32px;
-  padding-left: 64px;
-`;
+import { StyledActPage } from './Styles/ActPage';
 
 function ActPage() {
   const { pathname } = useLocation();
@@ -18,7 +9,7 @@ function ActPage() {
     .slice(0, pathname.split('/').length - 3);
 
   return (
-    <StyledSection>
+    <StyledActPage>
       {path && (
         <p>
           {
@@ -29,7 +20,7 @@ function ActPage() {
           {` | ${item}`}
         </p>
       )}
-    </StyledSection>
+    </StyledActPage>
   );
 }
 

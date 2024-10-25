@@ -1,10 +1,4 @@
-import styled from 'styled-components';
-
-const StyledRights = styled.section`
-  section {
-    padding:  32px;
-  }
-`;
+import { StyledRights } from './Styles/Rights';
 
 function Rights() {
   return (

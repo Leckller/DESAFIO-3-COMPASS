@@ -6,27 +6,7 @@ import Sizes from './Sizes';
 import Stars from './Stars';
 import TopText from './TopText';
 import Form from './Form';
-import media from '../../../Utils/media';
-
-const StyledInfos = styled.section`
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  width: 45%;
-  padding: 16px;
-  flex-direction: column;
-  gap: 16px;
-
-  ${media.md`
-    width: 100%;
-    align-items: center;
-  `}
-  button {
-    border: none;
-    background-color: transparent;
-    padding: 8px;
-  }
-`;
+import { StyledInfos } from './Styles/Infos';
 
 function Infos() {
   const { product, loading } = useAppSelector((s) => s.Product);
