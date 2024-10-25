@@ -1,78 +1,70 @@
-import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { setPage, setShow } from '../../redux/Reducers/Filter';
+import { sortProducts } from '../../redux/Reducers/Products';
+import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
-import ITheme from '../../Utils/Themes';
-
-const StyledFilter = styled.section`
-    display: flex;
-    flex-direction: row !important;
-    justify-content: space-between;
-    background-color: ${(p) => (p.theme as ITheme).Gold_md} !important;
-    padding: 16px;
-
-    section {
-      display: flex;
-      flex-direction: row !important;
-      gap: 16px;
-
-      label {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        align-items: center;
-        font-weight: 700;
-
-        input {
-          width: 62px;
-        }
-
-        input, select {
-          outline: none;
-          border: none;
-          padding: 8px;
-        }
-      }
-    }
-  `;
+import { fetchProducts } from '../../redux/Thunks/ProductsThunk';
+import { StyledFilter } from './Styles/Filter';
+import rotateImg from '../../Assets/Filter/rotate.svg';
+import filterImg from '../../Assets/Filter/filter.svg';
+import layoutFilterImg from '../../Assets/Filter/LayoutFilter.svg';
 
 function Filter() {
   const { category } = useParams();
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (category) {
-      dispatch(fetchCategoryProducts(category));
-    }
-  }, []);
+  const { Filter: { show, page }, Product: { countProducts } } = useAppSelector((s) => s);
 
   return (
     <StyledFilter>
 
       <section>
         <button>
-          <img src="" alt="Filter" />
+          <img src={ filterImg } alt="Filter" />
           Filter
         </button>
         <button>
-          a
-          <img src="" alt="" />
+          <img src={ layoutFilterImg } alt="layout" />
         </button>
         <button>
-          a
-          <img src="" alt="" />
+          <img src={ rotateImg } alt="rotate" />
         </button>
+        <p>
+          {`Showing 1–${show > countProducts
+            ? countProducts : show} of ${countProducts} results`}
+        </p>
       </section>
 
       <section>
         <label>
           Show
-          <input type="number" defaultValue={ 16 } min={ 8 } max={ 24 } />
+          <input
+            onChange={ ({ target: { value } }) => {
+              dispatch(setShow(+value));
+              const limitPage = +value >= countProducts ? 0 : page;
+              if (category) {
+                dispatch(fetchCategoryProducts({
+                  category, page: limitPage, show: +value,
+                }));
+              } else {
+                dispatch(fetchProducts({ page: limitPage, show: +value }));
+              }
+            } }
+            type="number"
+            defaultValue={ show }
+            min={ 1 }
+            max={ countProducts || 8 }
+          />
         </label>
         <label>
-          Short by
-          <select>
+          Sort by
+          <select
+            onChange={ ({ target: { value } }) => {
+              dispatch(
+                sortProducts(value as ISort),
+              );
+            } }
+          >
             <option value="default">Default</option>
             <option value="lowest">Lowest price</option>
             <option value="highest">Highest price</option>

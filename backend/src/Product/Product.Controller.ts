@@ -10,10 +10,10 @@ export default class ProductController {
         private readonly productService: ProductService
     ) { }
 
-    @Get(':page')
-    public async getProducts(@Param('page') page: number) {
+    @Get(':page/:show')
+    public async getProducts(@Param() { page, show }) {
 
-        return await this.productService.getProducts(+page);
+        return await this.productService.getProducts(+page, +show);
 
     }
 

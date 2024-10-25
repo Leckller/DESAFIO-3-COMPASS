@@ -1,56 +1,7 @@
-import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { ProductImage } from '../../types/ProductDetails.Type';
-import ITheme from '../../Utils/Themes';
-import media from '../../Utils/media';
-
-const StyledImages = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 45%;
-  gap: 16px;
-  padding: 16px;
-  
-  ${media.md`
-    flex-direction: column;
-    width: 100%;
-  `}
-  
-  section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 8px;
-
-    ${media.md`
-      flex-wrap: wrap;
-      flex-direction: row;  
-    `}
-    
-    button {
-      border: none;
-      img {
-        width: 76px;
-        height: 80px;
-      }
-    }
-  }
-
-  img {
-    background-color: ${(p) => (p.theme as ITheme).Gold_sm};
-    max-width: 450px;
-    max-height: 500px;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    ${media.md`
-      width: 100%;
-    `}
-  }
-
-`;
+import { StyledImages } from './Styles/Images';
 
 function Images() {
   const { product, loading } = useAppSelector((s) => s.Product);

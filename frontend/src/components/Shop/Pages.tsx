@@ -1,30 +1,48 @@
-import styled from 'styled-components';
-import ITheme from '../../Utils/Themes';
-
-const StyledSection = styled.section`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 32px;
-  gap: 16px;
-
-  button {
-    background-color: ${(p) => (p.theme as ITheme).Gold_md};
-    border: none;
-    padding: 16px;
-    border-radius: 8px;
-    min-width: 50px;
-    min-height: 50px;
-  }
-
-`;
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import Button from './Button';
+import { StyledPages } from './Styles/Pages';
 
 function Pages() {
+  const [pages, setPages] = useState(['']);
+
+  const {
+    Product: { countProducts },
+    Filter: { show, page },
+  } = useAppSelector((s) => s);
+
+  useEffect(() => {
+    const calc = Math.ceil((+countProducts / show));
+    const pagesArray = new Array(calc).fill('undefined');
+    setPages(pagesArray);
+  }, [countProducts, show]);
+
   return (
-    <StyledSection>
-      <button>1</button>
-      <button>Next</button>
-    </StyledSection>
+    <StyledPages>
+      {countProducts > show && (
+        <>
+          <Button
+            content="Previous"
+            disabled={ page === 0 }
+            page={ page - 1 }
+          />
+          {pages.map((_, i) => (
+            <Button
+              selected={ page === i }
+              key={ i }
+              content={ `${i + 1}` }
+              disabled={ false }
+              page={ i }
+            />
+          ))}
+          <Button
+            content="Next"
+            disabled={ (pages.length - 1) === page }
+            page={ page + 1 }
+          />
+        </>
+      )}
+    </StyledPages>
   );
 }
 

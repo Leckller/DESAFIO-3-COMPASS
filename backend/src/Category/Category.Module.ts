@@ -4,6 +4,7 @@ import CategoryService from "./Category.Service";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import ImageEntity from "src/Image/Image.Entity";
 import CategoryEntity from "./Category.Entity";
+import ProductEntity from "src/Product/Product.Entity";
 
 @Module({
 
@@ -11,7 +12,7 @@ import CategoryEntity from "./Category.Entity";
     providers: [CategoryService],
     imports: [
         TypeOrmModule.forFeature([
-            ImageEntity, CategoryEntity
+            ImageEntity, CategoryEntity, ProductEntity
         ])
     ]
 

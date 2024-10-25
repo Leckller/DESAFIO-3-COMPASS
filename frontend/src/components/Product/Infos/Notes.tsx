@@ -1,19 +1,5 @@
-import styled from 'styled-components';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-import ITheme from '../../../Utils/Themes';
-
-const StyledNotes = styled.section`
-  color: ${(p) => (p.theme as ITheme).TextColor_sm};
-  label {
-    display: flex;
-    gap: 16px;
-
-    p:nth-child(1) {
-      width: 60px;
-    }
-  }
-
-`;
+import { StyledNotes } from './Styles/Notes';
 
 function Notes() {
   const { product } = useAppSelector((s) => s.Product);

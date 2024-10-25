@@ -3,8 +3,8 @@ import { getProducts } from '../../services/Products/getProducts';
 
 export const fetchProducts = createAsyncThunk(
   'fetchProducts',
-  async (page: number = 0) => {
-    const response = await getProducts(page);
+  async ({ page = 0, show = 8 }: { page: number, show: number }) => {
+    const response = await getProducts(page, show);
     return response;
   },
 );

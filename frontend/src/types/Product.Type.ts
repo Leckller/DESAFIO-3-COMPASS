@@ -17,3 +17,5 @@ export type IProduct = {
   create_date: string;
   images: Image[];
 };
+
+export type IProductCart = { product: IProduct, quantity: number };

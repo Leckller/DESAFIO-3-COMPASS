@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import ActPage from '../components/Product/ActPage';
@@ -8,24 +7,7 @@ import Images from '../components/Product/Images';
 import Infos from '../components/Product/Infos/Infos';
 import Description from '../components/Product/Description';
 import Products from '../components/Home/Products/Products';
-
-const StyledMain = styled.main`
-  section:nth-child(2) {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    margin-top: 64px;
-  }
-
-  section:nth-child(4) {
-    display: flex;
-    flex-direction: column;
-    margin-top: 64px;
-    gap: 16px;
-    align-items: center;
-    justify-content: center;
-  }
-`;
+import { StyledProductMain } from './Styles/Product';
 
 function Product() {
   const dispatch = useAppDispatch();
@@ -39,7 +21,7 @@ function Product() {
   }, [productParams.id]);
 
   return (
-    <StyledMain>
+    <StyledProductMain>
       <ActPage />
       <section>
         <Images />
@@ -49,10 +31,13 @@ function Product() {
       {product?.relatedProducts?.length > 0 && (
         <section>
           <h2>Related Products</h2>
-          <Products products={ product.relatedProducts || [] } />
+          <Products
+            products={ product.relatedProducts || [] }
+            more={ `shop/${product.category.name}/0` }
+          />
         </section>
       )}
-    </StyledMain>
+    </StyledProductMain>
   );
 }
 

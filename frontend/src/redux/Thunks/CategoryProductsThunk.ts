@@ -3,8 +3,8 @@ import { getCategoryProductsByName } from '../../services/Categories/getCategory
 
 export const fetchCategoryProducts = createAsyncThunk(
   'fetchCategoryProducts',
-  async (category: string) => {
-    const response = await getCategoryProductsByName(category);
+  async ({ category, page, show }: { category: string, page: number, show: number }) => {
+    const response = await getCategoryProductsByName(category, page || 0, show || 8);
     return response;
   },
 );

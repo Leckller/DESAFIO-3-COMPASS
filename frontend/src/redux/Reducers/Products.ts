@@ -1,14 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '../../types/Product.Type';
-import { fetchCategoryProducts } from '../Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../Thunks/ProductsThunk';
 import { ICategory } from '../../types/Category.Type';
 import { fetchCategories } from '../Thunks/CategoriesThunk';
 import { fetchProductsDetails } from '../Thunks/ProductDetailsThunk';
 import { IProductDetails } from '../../types/ProductDetails.Type';
+import { ISort } from '../../types/Sort.Type';
+import { fetchCategoryProducts } from '../Thunks/CategoryProductsThunk';
 
 interface ProductsState {
+  // Objeto com vários produtos de diferentes categorias
   products: IProduct[],
+  countProducts: number,
   product: IProductDetails,
   categories: ICategory[],
   loading: boolean,
@@ -16,6 +19,7 @@ interface ProductsState {
 
 const initialState: ProductsState = {
   products: [],
+  countProducts: 0,
   categories: [],
   product: {} as IProductDetails,
   loading: false,
@@ -24,8 +28,43 @@ const initialState: ProductsState = {
 export const ProductsSlice = createSlice({
   name: 'Products',
   initialState,
-  reducers: {},
+  reducers: {
+    sortProducts(state, action: PayloadAction<ISort>) {
+      // Organiza os produtos de uma categoria definida
+      switch (action.payload) {
+        case 'lowest':
+          state.products = state.products
+            .sort((a, b) => a.price - b.price);
+          break;
+        case 'highest':
+          state.products = state.products
+            .sort((a, b) => b.price - a.price);
+          break;
+        case 'discount':
+          state.products = state.products
+            .sort((a, b) => b.discount_percent - a.discount_percent);
+          break;
+        case 'default':
+          break;
+        default:
+          break;
+      }
+    },
+  },
   extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategoryProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(
+        fetchCategoryProducts.fulfilled,
+        (state, { payload: { products, countProducts } }) => {
+          state.loading = false;
+          state.countProducts = countProducts;
+          state.products = products;
+        },
+      );
+
     builder
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
@@ -34,7 +73,8 @@ export const ProductsSlice = createSlice({
         fetchProducts.fulfilled,
         (state, action) => {
           state.loading = false;
-          state.products = action.payload;
+          state.products = action.payload.products;
+          state.countProducts = action.payload.count;
         },
       );
 
@@ -61,21 +101,10 @@ export const ProductsSlice = createSlice({
           state.categories = action.payload;
         },
       );
-
-    builder
-      .addCase(fetchCategoryProducts.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(
-        fetchCategoryProducts.fulfilled,
-        (state, action) => {
-          state.loading = false;
-          state.products = action.payload.products;
-        },
-      );
   },
+
 });
 
-// export const { } = ProductsSlice.actions;
+export const { sortProducts } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;

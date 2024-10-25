@@ -1,9 +1,11 @@
+import { StyledStars } from './Styles/Stars';
+
 function Stars() {
   return (
-    <article>
+    <StyledStars>
       stars
       {/* {TO DO} */}
-    </article>
+    </StyledStars>
   );
 }
 

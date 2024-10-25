@@ -1,30 +1,4 @@
-import styled from 'styled-components';
-import ITheme from '../../../Utils/Themes';
-
-const StyledInfos = styled.article`
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 32px;
-  gap: 16px;
-
-  h3 {
-    color: ${(p) => (p.theme as ITheme).TextColor_sm};
-    font-weight: 700;
-  }
-
-  a {
-    color: ${(p) => (p.theme as ITheme).TextColor};
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  article {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-`;
+import { StyledInfos } from './Styles/Infos';
 
 function Infos() {
   return (
@@ -53,11 +27,13 @@ function Infos() {
         <a href="/info/policies">Privacy Policies</a>
       </article>
 
-      <article>
+      <form onSubmit={ (e) => e.preventDefault() }>
         <h3>Newsletter</h3>
-        <input type="text" placeholder="Enter Your Email Address" />
-        <button>SUBSCRIBE</button>
-      </article>
+        <div>
+          <input type="text" placeholder="Enter Your Email Address" />
+          <button>SUBSCRIBE</button>
+        </div>
+      </form>
 
     </StyledInfos>
   );
