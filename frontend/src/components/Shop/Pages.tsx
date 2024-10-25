@@ -6,10 +6,8 @@ import { StyledPages } from './Styles/Pages';
 function Pages() {
   const [pages, setPages] = useState(['']);
 
-  const {
-    Product: { countProducts },
-    Filter: { show, page },
-  } = useAppSelector((s) => s);
+  const { countProducts } = useAppSelector((s) => s.Product);
+  const { show, page } = useAppSelector((s) => s.Filter);
 
   useEffect(() => {
     const calc = Math.ceil((+countProducts / show));

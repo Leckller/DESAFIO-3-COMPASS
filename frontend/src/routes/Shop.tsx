@@ -10,7 +10,7 @@ import { fetchProducts } from '../redux/Thunks/ProductsThunk';
 import { StyledShopMain } from './Styles/Shop';
 
 function Shop() {
-  const { Product: { products } } = useAppSelector((s) => s);
+  const { products } = useAppSelector((s) => s.Product);
   const dispatch = useAppDispatch();
   const { category } = useParams();
 

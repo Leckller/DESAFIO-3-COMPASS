@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { setPage, setShow } from '../../redux/Reducers/Filter';
+import { setShow } from '../../redux/Reducers/Filter';
 import { sortProducts } from '../../redux/Reducers/Products';
 import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../../redux/Thunks/CategoryProductsThunk';
@@ -13,7 +13,8 @@ import layoutFilterImg from '../../Assets/Filter/LayoutFilter.svg';
 function Filter() {
   const { category } = useParams();
   const dispatch = useAppDispatch();
-  const { Filter: { show, page }, Product: { countProducts } } = useAppSelector((s) => s);
+  const { countProducts } = useAppSelector((s) => s.Product);
+  const { page, show } = useAppSelector((s) => s.Filter);
 
   return (
     <StyledFilter>
