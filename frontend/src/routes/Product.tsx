@@ -7,7 +7,7 @@ import Images from '../components/Product/Images';
 import Infos from '../components/Product/Infos/Infos';
 import Description from '../components/Product/Description';
 import Products from '../components/Home/Products/Products';
-import { StyledProductMain } from './Styles/Product';
+import { StyledInfosImages, StyledProductMain } from './Styles/Product';
 
 function Product() {
   const dispatch = useAppDispatch();
@@ -23,10 +23,10 @@ function Product() {
   return (
     <StyledProductMain>
       <ActPage />
-      <section>
+      <StyledInfosImages>
         <Images />
         <Infos />
-      </section>
+      </StyledInfosImages>
       <Description />
       {product?.relatedProducts?.length > 0 && (
         <section>

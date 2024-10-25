@@ -20,7 +20,12 @@ function Products({ products, more = '' }: { products: IProduct[], more?: string
         <Empty />
       )}
       {more && (
-        <button onClick={ () => navigate(`/${more}`) }>
+        <button
+          onClick={ () => {
+            navigate(`/${more}`);
+            window.scrollTo(0, 0);
+          } }
+        >
           Show More
         </button>
       )}

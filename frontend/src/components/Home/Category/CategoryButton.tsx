@@ -6,7 +6,12 @@ function CategoryButton({ category }: { category: ICategory }) {
   const navigate = useNavigate();
 
   return (
-    <StyledCategoryButton onClick={ () => navigate(`home/shop/${category.name}/0`) }>
+    <StyledCategoryButton
+      onClick={ () => {
+        navigate(`home/shop/${category.name}/0`);
+        window.scrollTo(0, 0);
+      } }
+    >
 
       <img src={ category.image.imageLink } alt="category" />
       <h3>{category.name}</h3>

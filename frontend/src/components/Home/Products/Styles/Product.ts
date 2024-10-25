@@ -9,6 +9,14 @@ export const StyledProduct = styled.button`
   border: none;
   background-color: transparent;
 
+  &:hover {
+
+    div {
+      visibility: visible;
+    }
+
+  }
+
   img {
     object-fit: cover;
     width: 280px;
