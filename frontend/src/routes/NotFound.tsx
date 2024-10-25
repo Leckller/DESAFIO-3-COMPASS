@@ -1,19 +1,19 @@
 import { useNavigate } from 'react-router-dom';
+import { StyledNotFoundMain } from './Styles/NotFound';
 
 function NotFound() {
   const navigate = useNavigate();
   return (
-    <section className="flex flex-col h-screen w-screen items-center justify-around">
-      <p className="text-2xl text-left">
+    <StyledNotFoundMain>
+      <p>
         Tudo vazio por aqui...
       </p>
       <button onClick={ () => navigate('/') }>
-        <p className="flex gap-3 border-2 border-black p-2 rounded">
-          Voltar para rota
-          <strong>/</strong>
+        <p>
+          Voltar para rota principal
         </p>
       </button>
-    </section>
+    </StyledNotFoundMain>
   );
 }
 

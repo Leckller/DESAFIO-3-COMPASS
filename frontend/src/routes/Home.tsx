@@ -1,19 +1,10 @@
-import styled from 'styled-components';
 import { useEffect } from 'react';
 import Presentation from '../components/Home/Presentation';
 import Categories from '../components/Home/Category/Categories';
 import Products from '../components/Home/Products/Products';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import { fetchProducts } from '../redux/Thunks/ProductsThunk';
-
-const StyledMain = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 64px;
-  width: 100%;
-`;
+import { StyledHomeMain } from './Styles/Home';
 
 function Home() {
   const { products } = useAppSelector((s) => s.Product);
@@ -24,7 +15,7 @@ function Home() {
   }, []);
 
   return (
-    <StyledMain>
+    <StyledHomeMain>
       <Presentation />
       <h2>Browse The Range</h2>
       <Categories />
@@ -32,7 +23,7 @@ function Home() {
         Our Products
       </h2>
       <Products products={ products } more="shop" />
-    </StyledMain>
+    </StyledHomeMain>
   );
 }
 

@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Filter from '../components/Shop/Filter';
@@ -8,23 +7,10 @@ import { useAppDispatch, useAppSelector } from '../hooks/reduxHooks';
 import Pages from '../components/Shop/Pages';
 import { fetchCategoryProducts } from '../redux/Thunks/CategoryProductsThunk';
 import { fetchProducts } from '../redux/Thunks/ProductsThunk';
-
-const StyledMain = styled.main`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-
-    section:nth-child(3) {
-      margin-top: 64px;
-    }
-`;
+import { StyledShopMain } from './Styles/Shop';
 
 function Shop() {
-  const {
-    Product: { products },
-  } = useAppSelector((s) => s);
+  const { Product: { products } } = useAppSelector((s) => s);
   const dispatch = useAppDispatch();
   const { category } = useParams();
 
@@ -36,7 +22,7 @@ function Shop() {
   }, []);
 
   return (
-    <StyledMain>
+    <StyledShopMain>
       <Banner />
       <Filter />
       <Products
@@ -45,7 +31,7 @@ function Shop() {
         }
       />
       <Pages />
-    </StyledMain>
+    </StyledShopMain>
 
   );
 }
