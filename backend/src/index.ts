@@ -19,13 +19,13 @@ import SizeEntity from "./Size/Size.Entity";
 import SizeModule from "./Size/Size.Module";
 import UserEntity from "./User/User.Entity";
 import UserModule from "./User/User.Module";
-
+import SeedsModule from './Db/Seeds/Seeds.Module'
 
 export const Modules = [
     CategoryModule, ColorModule, ImageModule,
     ItemModule, LikeModule, ProductModule,
     ReviewModule, SizeModule, UserModule,
-    AuthModule, GuardModule
+    AuthModule, GuardModule, SeedsModule
 ];
 
 export const Entities = [

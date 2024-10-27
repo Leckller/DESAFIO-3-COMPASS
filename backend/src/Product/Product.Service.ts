@@ -159,7 +159,7 @@ export default class ProductService {
 
         } catch (err) {
 
-            return { err }
+            return { err, vish: 'kkk' }
 
         }
 

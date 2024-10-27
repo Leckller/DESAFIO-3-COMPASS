@@ -3,14 +3,14 @@ import ProductService from "./Product.Service";
 import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
 import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
 
-@Controller('/Product')
+@Controller('/product')
 export default class ProductController {
 
     constructor(
         private readonly productService: ProductService
     ) { }
 
-    @Get(':page/:show')
+    @Get('all/:page/:show')
     public async getProducts(@Param() { page, show }) {
 
         return await this.productService.getProducts(+page, +show);
@@ -25,7 +25,7 @@ export default class ProductController {
     }
 
     @Get('id/:id')
-    public async getProductById(@Param('id') productId: number) {
+    public async getProductById(@Param('id') productId: string) {
 
         return await this.productService.getProductById(+productId);
 
