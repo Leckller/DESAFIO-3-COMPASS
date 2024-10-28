@@ -17,7 +17,7 @@ export const StyledProducts = styled.section`
       padding: 8px 32px;
   }
 
-  section {
+  section:nth-child(1) {
       display: grid;
       column-gap: 16px;
       row-gap: 16px;
@@ -25,7 +25,7 @@ export const StyledProducts = styled.section`
   }
 
   ${media.lg`
-    section {
+    section:nth-child(1) {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;

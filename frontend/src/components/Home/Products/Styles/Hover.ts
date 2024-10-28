@@ -2,44 +2,44 @@ import styled from 'styled-components';
 import ITheme from '../../../../Utils/Themes';
 
 export const StyledHover = styled.div`
-  display: flex !important;
-  position: absolute !important;
+  display: flex;
+  position: absolute;
   visibility: hidden;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  width: 100% !important;
-  height: 100% !important;
-  gap: 16px !important;
-  backdrop-filter: blur(1px) !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  gap: 16px;
+  backdrop-filter: blur(1px);
 
   button {
 
-    background-color: white !important;
-    color: ${(p) => (p.theme as ITheme).gold} !important;
-    border: none !important;
-    padding: 16px !important;
-    width: 70% !important;
+    background-color: white;
+    color: ${(p) => (p.theme as ITheme).gold};
+    border: none;
+    padding: 16px;
+    width: 70%;
 
   }
 
   section {
-    display: flex !important;
-    justify-content: center  !important;
-    gap: 8px !important;
+    display: flex;
+    justify-content: center ;
+    gap: 8px;
 
     button {
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      background-color: transparent !important;
-      color: white !important;
-      gap: 8px !important;
-      border: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      color: white;
+      gap: 8px;
+      border: none;
       img {
-        width: 100% !important;
-        height: 100% !important;
+        width: 100%;
+        height: 100%;
       }
     }
   }

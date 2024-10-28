@@ -1,7 +1,7 @@
 import { IProduct } from '../../../types/Product.Type';
 import BubbleInfo from './BubbleInfo';
 import { discount } from '../../../Utils/discount';
-import { StyledProduct } from './Styles/Product';
+import { StyledProduct, StyledProductArticle } from './Styles/Product';
 import Hover from './Hover';
 
 function Product({ product }: { product: IProduct }) {
@@ -9,14 +9,14 @@ function Product({ product }: { product: IProduct }) {
     <StyledProduct>
 
       <img
-        src={ product?.images[0]?.image?.imageLink }
+        src={product?.images[0]?.image?.imageLink}
         alt="product"
       />
       <BubbleInfo
-        date={ product.create_date }
-        discount={ product.discount_percent }
+        date={product.create_date}
+        discount={product.discount_percent}
       />
-      <article>
+      <StyledProductArticle>
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <div>
@@ -25,9 +25,9 @@ function Product({ product }: { product: IProduct }) {
             <p>{discount(product.price, product.discount_percent)}</p>
           )}
         </div>
-      </article>
+      </StyledProductArticle>
 
-      <Hover id={ product.id } name={ product.name } />
+      <Hover id={product.id} name={product.name} />
     </StyledProduct>
 
   );
