@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import AuthService from "src/Auth/Auth.Service";
+// import AuthService from "src/Auth/Auth.Service";
 import CategoryEntity from "src/Category/Category.Entity";
 import ColorEntity from "src/Color/Color.Entity";
 import ImageEntity from "src/Image/Image.Entity";
@@ -17,7 +17,7 @@ import { Repository } from "typeorm";
 export default class SeedsService {
 
   constructor(
-    private readonly authService: AuthService,
+    // private readonly authService: AuthService,
     @InjectRepository(ImageEntity)
     private readonly imageRepo: Repository<ImageEntity>,
     @InjectRepository(ImagesEntity)
