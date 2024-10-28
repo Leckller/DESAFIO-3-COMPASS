@@ -65,12 +65,14 @@ export default class ProductService {
                         colors: true,
                         sizes: true,
                         reviews: true,
+                        tags: true,
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
                         category: { id: true, name: true },
                         colors: { id: true, color: true },
                         sizes: { id: true, size: true },
+                        tags: { id: true, tag: { id: true, name: true } },
                         reviews: { id: true, comment: true, stars: true, },
                         images: { id: true, image: { id: true, imageLink: true } },
                     }
@@ -122,11 +124,13 @@ export default class ProductService {
                         colors: true,
                         sizes: true,
                         reviews: true,
+                        tags: { tag: true }
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
                         category: { id: true, name: true },
                         colors: { id: true, color: true },
+                        tags: { id: true, tag: { id: true, name: true } },
                         sizes: { id: true, size: true },
                         reviews: { id: true, comment: true, stars: true, },
                         images: { id: true, image: { id: true, imageLink: true } },
