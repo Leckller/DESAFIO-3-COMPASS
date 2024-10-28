@@ -3,6 +3,7 @@ import ColorEntity from "src/Color/Color.Entity";
 import ImagesEntity from "src/Image/Images.Entity";
 import ReviewEntity from "src/Review/Review.Entity";
 import SizeEntity from "src/Size/Size.Entity";
+import TagRelation from "src/Tag/TagRelation.Entity";
 import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -59,6 +60,9 @@ export default class ProductEntity {
 
     @OneToMany(() => ColorEntity, (colorEntity) => colorEntity.product)
     colors: ColorEntity[];
+
+    @OneToMany(() => TagRelation, (tagRelation) => tagRelation.product)
+    tags: TagRelation[];
 
     @CreateDateColumn()
     create_date: Date;

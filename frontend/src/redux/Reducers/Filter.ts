@@ -9,7 +9,7 @@ interface FilterState {
 
 const initialState: FilterState = {
   page: 0,
-  show: 8,
+  show: 16,
   sort: 'default',
 };
 
@@ -17,6 +17,9 @@ export const FilterSlice = createSlice({
   name: 'Filter',
   initialState,
   reducers: {
+    setSort(state, action: PayloadAction<ISort>) {
+      state.sort = action.payload;
+    },
     setShow(state, action: PayloadAction<number>) {
       state.show = action.payload;
     },
@@ -27,6 +30,6 @@ export const FilterSlice = createSlice({
   },
 });
 
-export const { setShow, setPage } = FilterSlice.actions;
+export const { setShow, setPage, setSort } = FilterSlice.actions;
 
 export default FilterSlice.reducer;

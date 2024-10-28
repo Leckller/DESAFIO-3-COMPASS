@@ -5,6 +5,7 @@ import { Not, Repository } from "typeorm";
 import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
 import CategoryEntity from "src/Category/Category.Entity";
 import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
+import { ISort } from "src/Types/Sort";
 
 @Injectable()
 export default class ProductService {
@@ -17,16 +18,26 @@ export default class ProductService {
     ) { }
 
 
-    public async getProducts(page: number = 0, show: number = 8) {
+    public async getProducts(page: number = 0, show: number = 8, sort: ISort = 'default') {
         // Retorna os produtos apenas com o relacionamento de imagens
         // Metodo recomentado para páginas sem descrições ( Home e Shop )
         try {
+
+            let order = {}
+            if (sort === 'highest') {
+                order = { price: 'DESC' }
+            } else if (sort === 'discount') {
+                order = { discount_percent: 'DESC' }
+            } else {
+                order = { price: 'ASC' }
+            }
 
             const [products, count] = await this.productRepository
                 // Pega 8 itens e conta a quantidade total de itens
                 .findAndCount({
                     skip: +page * show,
                     take: show,
+                    order,
                     relations: {
                         images: { image: true },
                     },
@@ -65,12 +76,14 @@ export default class ProductService {
                         colors: true,
                         sizes: true,
                         reviews: true,
+                        tags: true,
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
                         category: { id: true, name: true },
                         colors: { id: true, color: true },
                         sizes: { id: true, size: true },
+                        tags: { id: true, tag: { id: true, name: true } },
                         reviews: { id: true, comment: true, stars: true, },
                         images: { id: true, image: { id: true, imageLink: true } },
                     }
@@ -122,11 +135,13 @@ export default class ProductService {
                         colors: true,
                         sizes: true,
                         reviews: true,
+                        tags: { tag: true }
                     },
                     // Seleciona apenas os atributos necessários
                     select: {
                         category: { id: true, name: true },
                         colors: { id: true, color: true },
+                        tags: { id: true, tag: { id: true, name: true } },
                         sizes: { id: true, size: true },
                         reviews: { id: true, comment: true, stars: true, },
                         images: { id: true, image: { id: true, imageLink: true } },
@@ -159,7 +174,7 @@ export default class ProductService {
 
         } catch (err) {
 
-            return { err }
+            return { err, vish: 'kkk' }
 
         }
 

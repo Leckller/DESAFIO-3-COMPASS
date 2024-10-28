@@ -5,12 +5,14 @@ import ImageEntity from "./Image.Entity";
 import ImageService from "./Image.Service";
 import ImagesEntity from "./Images.Entity";
 import ProductEntity from "src/Product/Product.Entity";
+import AuthModule from "src/Auth/Auth.Module";
 
 @Module({
 
     controllers: [ImageController],
     providers: [ImageService],
     imports: [
+        AuthModule,
         TypeOrmModule.forFeature([
             ImageEntity,
             ImagesEntity,

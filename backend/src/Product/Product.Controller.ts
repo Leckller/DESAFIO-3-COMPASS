@@ -1,19 +1,20 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import ProductService from "./Product.Service";
 import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
 import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
+import AuthAdmGuard from "src/Guard/AuthAdm.Guard";
 
-@Controller('/Product')
+@Controller('/product')
 export default class ProductController {
 
     constructor(
         private readonly productService: ProductService
     ) { }
 
-    @Get(':page/:show')
-    public async getProducts(@Param() { page, show }) {
+    @Get('all/:page/:show/:sort')
+    public async getProducts(@Param() { page, show, sort }) {
 
-        return await this.productService.getProducts(+page, +show);
+        return await this.productService.getProducts(+page, +show, sort);
 
     }
 
@@ -25,13 +26,13 @@ export default class ProductController {
     }
 
     @Get('id/:id')
-    public async getProductById(@Param('id') productId: number) {
+    public async getProductById(@Param('id') productId: string) {
 
         return await this.productService.getProductById(+productId);
 
     }
 
-
+    @UseGuards(AuthAdmGuard)
     @Post()
     public async addProduct(@Body() product: AddProductRequestDto) {
 
@@ -55,6 +56,7 @@ export default class ProductController {
 
     }
 
+    @UseGuards(AuthAdmGuard)
     @Patch()
     public async setDiscount(@Body() { discount, productId }: SetDiscountRequestDto) {
 

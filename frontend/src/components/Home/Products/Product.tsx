@@ -1,22 +1,22 @@
-import { useNavigate } from 'react-router-dom';
 import { IProduct } from '../../../types/Product.Type';
 import BubbleInfo from './BubbleInfo';
 import { discount } from '../../../Utils/discount';
-import { StyledProduct } from './Styles/Product';
+import { StyledProduct, StyledProductArticle } from './Styles/Product';
+import Hover from './Hover';
 
 function Product({ product }: { product: IProduct }) {
-  const navigate = useNavigate();
-
   return (
-    <StyledProduct
-      onClick={ () => navigate(`/product/${product.name}/${product.id}`) }
-    >
-      <img src={ product?.images[0]?.image?.imageLink } alt="" />
-      <BubbleInfo
-        date={ product.create_date }
-        discount={ product.discount_percent }
+    <StyledProduct>
+
+      <img
+        src={product?.images[0]?.image?.imageLink}
+        alt="product"
       />
-      <article>
+      <BubbleInfo
+        date={product.create_date}
+        discount={product.discount_percent}
+      />
+      <StyledProductArticle>
         <h2>{product.name}</h2>
         <p>{product.description}</p>
         <div>
@@ -25,7 +25,9 @@ function Product({ product }: { product: IProduct }) {
             <p>{discount(product.price, product.discount_percent)}</p>
           )}
         </div>
-      </article>
+      </StyledProductArticle>
+
+      <Hover id={product.id} name={product.name} />
     </StyledProduct>
 
   );

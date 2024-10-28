@@ -1,12 +1,17 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService, JwtSignOptions } from "@nestjs/jwt";
+import { InjectRepository } from "@nestjs/typeorm";
 import * as bcrypt from 'bcrypt';
+import UserEntity from "src/User/User.Entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export default class AuthService {
 
     constructor(
         private readonly jwtService: JwtService,
+        @InjectRepository(UserEntity)
+        private readonly userRepo: Repository<UserEntity>
     ) { }
 
     public async encrypt(text: string) {
@@ -48,6 +53,26 @@ export default class AuthService {
             throw new UnauthorizedException("Token inválido");
 
         }
+
+    }
+
+    public async isAdm(id: number): Promise<boolean> {
+
+        const findUser = await this.userRepo.findOne({ where: { id: +id } });
+
+        if (!findUser) {
+
+            return true
+
+        }
+
+        if (!findUser.adm) {
+
+            return true
+
+        }
+
+        return false;
 
     }
 

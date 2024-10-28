@@ -8,10 +8,11 @@ import { StyledHomeMain } from './Styles/Home';
 
 function Home() {
   const { products } = useAppSelector((s) => s.Product);
+  const { sort } = useAppSelector((s) => s.Filter);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts({ page: 0, show: 8 }));
+    dispatch(fetchProducts({ page: 0, show: 8, sort }));
   }, []);
 
   return (
@@ -22,7 +23,7 @@ function Home() {
       <h2>
         Our Products
       </h2>
-      <Products products={ products } more="shop" />
+      <Products products={products} more="shop" />
     </StyledHomeMain>
   );
 }

@@ -4,7 +4,8 @@ import { editProductInCart } from '../../../redux/Reducers/Cart';
 import { StyledForm } from './Styles/Form';
 
 function Form() {
-  const { Product: { product }, Cart: { cart } } = useAppSelector((s) => s);
+  const { product } = useAppSelector((s) => s.Product);
+  const { cart } = useAppSelector((s) => s.Cart);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useAppDispatch();
 
