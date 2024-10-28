@@ -9,21 +9,25 @@ function Notes() {
 
   return (
     <StyledNotes>
-      <label>
+      <article>
         <p>SKU</p>
         :
         <p>{product?.sku}</p>
-      </label>
-      <label>
+      </article>
+      <article>
         <p>Category</p>
         :
         <p>{product?.category?.name}</p>
-      </label>
-      <label>
+      </article>
+      <article>
         <p>Tags</p>
         :
-        <p>{`TODO ${product.id}`}</p>
-      </label>
+        {product?.tags?.map((tag) => (
+          <p key={ tag.tag.id }>
+            {tag.tag.name}
+          </p>
+        ))}
+      </article>
       <StyledWebLinks>
         <p>Share</p>
         :

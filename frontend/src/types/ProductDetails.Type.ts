@@ -31,6 +31,14 @@ type Review = {
   comment: string;
 };
 
+type Tag = {
+  id: number;
+  tag: {
+    id: number;
+    name: string;
+  }
+};
+
 export type IProductDetails = {
   id: number;
   name: string;
@@ -47,4 +55,5 @@ export type IProductDetails = {
   sizes: Size[]; // Array de tamanhos
   reviews: Review[]; // Array de reviews
   relatedProducts: IProduct[];
+  tags: Tag[]
 };

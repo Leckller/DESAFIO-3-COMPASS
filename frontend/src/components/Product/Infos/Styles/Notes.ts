@@ -2,9 +2,16 @@ import styled from 'styled-components';
 import ITheme from '../../../../Utils/Themes';
 
 export const StyledNotes = styled.section`
+  display:flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   color: ${(p) => (p.theme as ITheme).TextColor_sm};
-  label {
+  justify-content: start;
+  align-items: start;
+  
+  article {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
 
     p:nth-child(1) {

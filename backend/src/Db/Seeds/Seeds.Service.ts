@@ -1,9 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import CategoryEntity from "src/Category/Category.Entity";
+import ColorEntity from "src/Color/Color.Entity";
 import ImageEntity from "src/Image/Image.Entity";
 import ImagesEntity from "src/Image/Images.Entity";
 import ProductEntity from "src/Product/Product.Entity";
+import ReviewEntity from "src/Review/Review.Entity";
+import SizeEntity from "src/Size/Size.Entity";
+import TagEntity from "src/Tag/Tag.Entity";
+import TagRelationEntity from "src/Tag/TagRelation.Entity";
+import UserEntity from "src/User/User.Entity";
 import { Repository } from "typeorm";
 
 @Injectable()
@@ -18,6 +24,18 @@ export default class SeedsService {
     private readonly CategoryRepo: Repository<CategoryEntity>,
     @InjectRepository(ProductEntity)
     private readonly ProductRepo: Repository<ProductEntity>,
+    @InjectRepository(SizeEntity)
+    private readonly sizeRepo: Repository<SizeEntity>,
+    @InjectRepository(ColorEntity)
+    private readonly colorRepo: Repository<ColorEntity>,
+    @InjectRepository(ReviewEntity)
+    private readonly reviewRepo: Repository<ReviewEntity>,
+    @InjectRepository(TagEntity)
+    private readonly tagRepo: Repository<TagEntity>,
+    @InjectRepository(TagRelationEntity)
+    private readonly tagRelationRepo: Repository<TagRelationEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepo: Repository<UserEntity>,
   ) { }
 
   public async seeds() {
@@ -53,7 +71,7 @@ export default class SeedsService {
       image: diningImg,
     });
 
-    const bredroomCat = this.CategoryRepo.create({
+    const bedroomCat = this.CategoryRepo.create({
       name: 'Bedroom',
       image: bedroomImg
     });
@@ -63,7 +81,7 @@ export default class SeedsService {
       image: livingImg
     });
 
-    await this.CategoryRepo.save([diningCat, bredroomCat, LivingCat]);
+    await this.CategoryRepo.save([diningCat, bedroomCat, LivingCat]);
 
     // Produtos
 
@@ -104,7 +122,7 @@ export default class SeedsService {
       price: 1500,
       discount_percent: 0,
       sku: '123123123', // Provisório
-      category: bredroomCat,
+      category: bedroomCat,
     });
 
     const muggoProd = this.ProductRepo.create({
@@ -134,7 +152,7 @@ export default class SeedsService {
       price: 15250,
       discount_percent: 0,
       sku: '123123123', // Provisório
-      category: bedroomImg,
+      category: bedroomCat,
     });
 
     const leviosaProd = this.ProductRepo.create({
@@ -143,11 +161,15 @@ export default class SeedsService {
       large_description: 'A cadeira Leviosa combina um design inovador com conforto excepcional. Seu formato elegante e materiais leves fazem dela uma peça perfeita para adicionar um toque de sofisticação a qualquer espaço. Ideal para salas de jantar ou escritórios, a Leviosa oferece uma experiência de assento que eleva a decoração, tornando o ambiente mais acolhedor e moderno.',
       price: 15250,
       discount_percent: 10,
-      sku: '123123123', // Provisório
+      sku: '123123123', // Provisório 
       category: diningCat,
     });
 
-    await this.ProductRepo.save([syltherineProd, lolitoProd, respiraProd, grifoProd, muggoProd, pingkyProd, pottyProd, leviosaProd]);
+    await this.ProductRepo.save([
+      syltherineProd, lolitoProd, respiraProd,
+      grifoProd, muggoProd, pingkyProd,
+      pottyProd, leviosaProd
+    ]);
 
 
     // Images Product
@@ -235,6 +257,82 @@ export default class SeedsService {
       relationLolitoImg, relationGrifoImg, relationMuggoImg,
       relationPingkyImg, relationPottyImg
     ])
+
+    // Colors && Sizes
+
+    const colors = ['red', 'blue'];
+    const sizes = ['XL', 'L'];
+
+    const products = [
+      syltherineProd, lolitoProd, respiraProd,
+      grifoProd, muggoProd, pingkyProd,
+      pottyProd, leviosaProd
+    ];
+
+    products.forEach(async (prod) => {
+      const colorProd = this.colorRepo.create({
+        color: colors[0], product: prod
+      });
+      const colorProd2 = this.colorRepo.create({
+        color: colors[1], product: prod
+      });
+      const sizeProd = this.sizeRepo.create({
+        size: sizes[0], product: prod
+      });
+      const sizeProd2 = this.sizeRepo.create({
+        size: sizes[1], product: prod
+      });
+
+      await this.colorRepo.save([colorProd, colorProd2])
+      await this.sizeRepo.save([sizeProd, sizeProd2])
+    });
+
+    // Users e Reviews
+
+    const userKayo = this.userRepo.create({
+      email: 'kayo@gmail.com', password: 'flamengo123', name: 'Kayo'
+    });
+    const userFran = this.userRepo.create({
+      email: 'fran@gmail.com', password: 'bike123', name: 'Fran'
+    });
+    const userMorghana = this.userRepo.create({
+      email: 'Morghana@gmail.com', password: 'vasco123', name: 'Morghana'
+    });
+
+    await this.userRepo.save([userKayo, userFran, userMorghana]);
+
+    const stars = [4, 3, 5];
+    const comments = ['Good Product', 'Nice Product', 'Awesome Product'];
+
+    products.forEach(async (prod) => {
+
+      const review = this.reviewRepo.create({
+        comment: comments[0], product: prod, stars: stars[0], user: userKayo
+      });
+      const review2 = this.reviewRepo.create({
+        comment: comments[1], product: prod, stars: stars[1], user: userFran
+      });
+      const review3 = this.reviewRepo.create({
+        comment: comments[2], product: prod, stars: stars[2], user: userMorghana
+      });
+
+      await this.reviewRepo.save([review, review2, review3]);
+
+    });
+
+    // Tags
+
+    const tagsName = ['Sofa', 'Chair', 'Table'];
+
+    products.forEach(async (prod) => {
+
+      const tags = tagsName.map((tag) => this.tagRepo.create({ name: tag }));
+      await this.tagRepo.save([...tags]);
+
+      const tagsRelation = tags.map((tag) => this.tagRelationRepo.create({ tag, product: prod }));
+      await this.tagRelationRepo.save([...tagsRelation]);
+
+    });
 
   }
 
