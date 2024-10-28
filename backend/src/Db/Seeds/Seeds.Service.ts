@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import AuthService from "src/Auth/Auth.Service";
 import CategoryEntity from "src/Category/Category.Entity";
 import ColorEntity from "src/Color/Color.Entity";
 import ImageEntity from "src/Image/Image.Entity";
@@ -16,6 +17,7 @@ import { Repository } from "typeorm";
 export default class SeedsService {
 
   constructor(
+    private readonly authService: AuthService,
     @InjectRepository(ImageEntity)
     private readonly imageRepo: Repository<ImageEntity>,
     @InjectRepository(ImagesEntity)
@@ -165,10 +167,20 @@ export default class SeedsService {
       category: diningCat,
     });
 
+    const asgardProd = this.ProductRepo.create({
+      name: 'Asgaard sofa',
+      description: 'Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.',
+      large_description: 'Embodying the raw, wayward spirit of rock ‘n’ roll, the Kilburn portable active stereo speaker takes the unmistakable look and sound of Marshall, unplugs the chords, and takes the show on the road. Weighing in under 7 pounds, the Kilburn is a lightweight piece of vintage styled engineering. Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact.',
+      price: 25000,
+      discount_percent: 0,
+      sku: '123123123', // Provisório 
+      category: LivingCat,
+    });
+
     await this.ProductRepo.save([
       syltherineProd, lolitoProd, respiraProd,
       grifoProd, muggoProd, pingkyProd,
-      pottyProd, leviosaProd
+      pottyProd, leviosaProd, asgardProd
     ]);
 
 
@@ -206,8 +218,19 @@ export default class SeedsService {
       imageLink: 'https://tinyurl.com/ye26wrfb'
     });
 
+    const asgardProductImg = this.imageRepo.create({
+      imageLink: 'https://tinyurl.com/kkzayxz6'
+    });
+    const asgardProductImg2 = this.imageRepo.create({
+      imageLink: 'https://tinyurl.com/2xvpzsku'
+    });
+    const asgardProductImg3 = this.imageRepo.create({
+      imageLink: 'https://tinyurl.com/5xmvzyye'
+    });
+
     await this.imageRepo.save([
-      syltherineProductImg, leviosaProductImg, respiraProductImg, lolitoProductImg, grifoProductImg, muggoProductImg, pingkyProductImg, pottyProductImg
+      syltherineProductImg, leviosaProductImg, respiraProductImg, lolitoProductImg, grifoProductImg, muggoProductImg, pingkyProductImg, pottyProductImg,
+      asgardProductImg, asgardProductImg2, asgardProductImg3
     ]);
 
     // Relacionamento Imagem Produto
@@ -252,10 +275,24 @@ export default class SeedsService {
       product: pottyProd,
     });
 
+    const relationAsgardImg = this.imageProductRepo.create({
+      image: asgardProductImg,
+      product: asgardProd,
+    });
+    const relationAsgardImg2 = this.imageProductRepo.create({
+      image: asgardProductImg2,
+      product: asgardProd,
+    });
+    const relationAsgardImg3 = this.imageProductRepo.create({
+      image: asgardProductImg3,
+      product: asgardProd,
+    });
+
     await this.imageProductRepo.save([
       relationSyltherineImg, relationLeviosaImg, relationRespiraImg,
       relationLolitoImg, relationGrifoImg, relationMuggoImg,
-      relationPingkyImg, relationPottyImg
+      relationPingkyImg, relationPottyImg,
+      relationAsgardImg, relationAsgardImg2, relationAsgardImg3
     ])
 
     // Colors && Sizes
@@ -266,7 +303,7 @@ export default class SeedsService {
     const products = [
       syltherineProd, lolitoProd, respiraProd,
       grifoProd, muggoProd, pingkyProd,
-      pottyProd, leviosaProd
+      pottyProd, leviosaProd, asgardProd
     ];
 
     products.forEach(async (prod) => {
@@ -290,13 +327,13 @@ export default class SeedsService {
     // Users e Reviews
 
     const userKayo = this.userRepo.create({
-      email: 'kayo@gmail.com', password: 'flamengo123', name: 'Kayo'
+      email: 'kayo@gmail.com', password: await this.authService.encrypt("Flamengo123!"), name: 'Kayo', adm: false,
     });
     const userFran = this.userRepo.create({
-      email: 'fran@gmail.com', password: 'bike123', name: 'Fran'
+      email: 'fran@gmail.com', password: await this.authService.encrypt("#Bike123!"), name: 'Fran', adm: true
     });
     const userMorghana = this.userRepo.create({
-      email: 'Morghana@gmail.com', password: 'vasco123', name: 'Morghana'
+      email: 'Morghana@gmail.com', password: await this.authService.encrypt("Vasco123!"), name: 'Morghana', adm: false,
     });
 
     await this.userRepo.save([userKayo, userFran, userMorghana]);

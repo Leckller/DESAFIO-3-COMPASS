@@ -17,9 +17,9 @@ function Shop() {
 
   useEffect(() => {
     if (category) {
-      dispatch(fetchCategoryProducts({ category, page: 0, show: 8, sort }));
+      dispatch(fetchCategoryProducts({ category, page: 0, show: 16, sort }));
       return;
-    } dispatch(fetchProducts({ page: 0, show: 8, sort }));
+    } dispatch(fetchProducts({ page: 0, show: 16, sort }));
   }, []);
 
   return (

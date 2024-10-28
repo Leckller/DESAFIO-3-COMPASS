@@ -11,9 +11,12 @@ import SizeEntity from 'src/Size/Size.Entity';
 import TagEntity from 'src/Tag/Tag.Entity';
 import TagRelationEntity from 'src/Tag/TagRelation.Entity';
 import UserEntity from 'src/User/User.Entity';
+import AuthModule from 'src/Auth/Auth.Module';
+import AuthService from 'src/Auth/Auth.Service';
 
 @Module({
   imports: [
+    AuthModule,
     TypeOrmModule.forFeature([
       ImagesEntity,
       ImageEntity,
@@ -27,6 +30,6 @@ import UserEntity from 'src/User/User.Entity';
       UserEntity,
     ]),
   ],
-  providers: [SeedsService],
+  providers: [SeedsService, AuthService],
 })
-export default class SeedModule {}
+export default class SeedModule { }

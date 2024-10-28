@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import ProductService from "./Product.Service";
 import AddProductRequestDto from "./Dtos/AddProduct.Request.Dto";
 import SetDiscountRequestDto from "./Dtos/setDiscount.Request.Dto";
+import AuthAdmGuard from "src/Guard/AuthAdm.Guard";
 
 @Controller('/product')
 export default class ProductController {
@@ -31,7 +32,7 @@ export default class ProductController {
 
     }
 
-
+    @UseGuards(AuthAdmGuard)
     @Post()
     public async addProduct(@Body() product: AddProductRequestDto) {
 
@@ -55,6 +56,7 @@ export default class ProductController {
 
     }
 
+    @UseGuards(AuthAdmGuard)
     @Patch()
     public async setDiscount(@Body() { discount, productId }: SetDiscountRequestDto) {
 

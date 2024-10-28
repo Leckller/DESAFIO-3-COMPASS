@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
 import CategoryService from "./Category.Service";
 import AddCategoryRequestDto from "./Dtos/AddCategory.Request.Dto";
+import AuthAdmGuard from "src/Guard/AuthAdm.Guard";
 
 @Controller('/category')
 export default class CategoryController {
@@ -30,6 +31,7 @@ export default class CategoryController {
 
     }
 
+    @UseGuards(AuthAdmGuard)
     @Post()
     public async addCategory(@Body() { imageId, name }: AddCategoryRequestDto) {
 

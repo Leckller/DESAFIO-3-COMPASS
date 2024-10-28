@@ -1,7 +1,7 @@
 import { Body, Controller, Post, UseGuards } from "@nestjs/common";
 import SizeService from "./Size.Service";
 import AddSizeRequestDto from "./Dtos/AddSize.Request.Dto";
-import AuthGuard from "src/Guard/Auth.Guard";
+import AuthAdmGuard from "src/Guard/AuthAdm.Guard";
 
 @Controller('/Size')
 export default class SizeController {
@@ -10,7 +10,7 @@ export default class SizeController {
         private readonly sizeService: SizeService
     ) { }
 
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthAdmGuard)
     @Post()
     public async addSize(@Body() { productId, size }: AddSizeRequestDto) {
 
