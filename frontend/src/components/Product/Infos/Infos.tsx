@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import Notes from './Notes';
 import Colors from './Colors';

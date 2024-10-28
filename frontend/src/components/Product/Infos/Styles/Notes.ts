@@ -13,3 +13,20 @@ export const StyledNotes = styled.section`
   }
 
 `;
+
+export const StyledWebLinks = styled.article`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    p {
+      width: 60px;
+    }
+`;

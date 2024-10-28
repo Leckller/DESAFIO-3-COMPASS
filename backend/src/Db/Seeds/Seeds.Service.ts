@@ -31,17 +31,17 @@ export default class SeedsService {
     // Imagens das Categorias
     // id 1
     const diningImg = this.imageRepo.create({
-      imageLink: 'https://abrir.link/VOEZw',
+      imageLink: 'https://tinyurl.com/2snb3ndw',
     });
 
     // id 2
     const bedroomImg = this.imageRepo.create({
-      imageLink: 'https://abrir.link/DAKVQ',
+      imageLink: 'https://tinyurl.com/2ksy8yfu',
     });
 
     // id 3
     const livingImg = this.imageRepo.create({
-      imageLink: 'https://abrir.link/ZxUya'
+      imageLink: 'https://tinyurl.com/du6wj89v'
     })
 
     await this.imageRepo.save([diningImg, bedroomImg, livingImg]);
