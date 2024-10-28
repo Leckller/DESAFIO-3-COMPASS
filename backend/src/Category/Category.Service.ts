@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import ImageEntity from "src/Image/Image.Entity";
 import AddCategoryRequestDto from "./Dtos/AddCategory.Request.Dto";
 import ProductEntity from "src/Product/Product.Entity";
+import { ISort } from "src/Types/Sort";
 
 @Injectable()
 export default class CategoryService {
@@ -71,18 +72,25 @@ export default class CategoryService {
 
     }
 
-    public async getCategoryProductsByName(name: string, page: number = 0, show: number = 2) {
+    public async getCategoryProductsByName(name: string, page: number = 0, show: number = 2, sort: ISort = 'default') {
 
-        // Paginação feita para pegar de 2 em 2 produtos por pagina
-        const products = await this.ProductRepository.find({
+        let order = {}
+        if (sort === 'highest') {
+            order = { price: 'DESC' }
+        } else if (sort === 'discount') {
+            order = { discount_percent: 'DESC' }
+        } else {
+            order = { price: 'ASC' }
+        }
+
+        // Paginação feita para pegar de 2 em 2 produtos por pagina e faz a contagem
+        const [products, countProducts] = await this.ProductRepository.findAndCount({
             where: { category: { name } },
+            order,
             relations: { images: { image: true } },
             skip: +page * show,
             take: show
         });
-
-        // Contagem de produtos
-        const countProducts = await this.ProductRepository.count({ where: { category: { name } } });
 
         return { products, countProducts, categoryName: name };
 

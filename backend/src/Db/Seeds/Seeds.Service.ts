@@ -112,7 +112,7 @@ export default class SeedsService {
       description: 'O sofá Muggo oferece conforto amplo e design contemporâneo, ideal para transformar qualquer espaço em um ambiente aconchegante.',
       large_description: 'O sofá Muggo é sinônimo de conforto e estilo, com um design moderno e acolhedor que se adapta a diferentes ambientes. Seu estofamento macio e espaçoso é perfeito para momentos de relaxamento. Feito com materiais duráveis e de alta qualidade, o Muggo proporciona uma experiência de conforto que complementa qualquer decoração.',
       price: 15250,
-      discount_percent: 0,
+      discount_percent: 40,
       sku: '123123123', // Provisório
       category: LivingCat,
     });
@@ -122,7 +122,7 @@ export default class SeedsService {
       description: 'O sofá Pingky é fofo e acolhedor, com um design delicado que traz charme e conforto para qualquer ambiente.',
       large_description: 'Com estofado extra macio e um design encantador, o sofá Pingky transforma qualquer espaço em um ambiente aconchegante. Perfeito para relaxar, ele combina conforto e um toque de charme, ideal para quem busca suavidade e estilo. Seus materiais de alta qualidade garantem durabilidade, mantendo o ambiente sempre convidativo.',
       price: 15250,
-      discount_percent: 0,
+      discount_percent: 20,
       sku: '123123123', // Provisório
       category: LivingCat,
     });
@@ -142,7 +142,7 @@ export default class SeedsService {
       description: 'A cadeira Leviosa é um símbolo de leveza e elegância, com um design contemporâneo que traz estilo e conforto a qualquer ambiente.',
       large_description: 'A cadeira Leviosa combina um design inovador com conforto excepcional. Seu formato elegante e materiais leves fazem dela uma peça perfeita para adicionar um toque de sofisticação a qualquer espaço. Ideal para salas de jantar ou escritórios, a Leviosa oferece uma experiência de assento que eleva a decoração, tornando o ambiente mais acolhedor e moderno.',
       price: 15250,
-      discount_percent: 0,
+      discount_percent: 10,
       sku: '123123123', // Provisório
       category: diningCat,
     });

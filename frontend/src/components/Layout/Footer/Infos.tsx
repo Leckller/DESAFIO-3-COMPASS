@@ -27,10 +27,10 @@ function Infos() {
         <a href="/info/policies">Privacy Policies</a>
       </article>
 
-      <form onSubmit={ (e) => e.preventDefault() }>
+      <form onSubmit={(e) => e.preventDefault()}>
         <h3>Newsletter</h3>
         <div>
-          <input type="text" placeholder="Enter Your Email Address" />
+          <input autoComplete="off" name='email' type="text" placeholder="Enter Your Email Address" />
           <button>SUBSCRIBE</button>
         </div>
       </form>
