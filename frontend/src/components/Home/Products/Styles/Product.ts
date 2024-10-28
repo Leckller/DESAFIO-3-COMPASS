@@ -6,8 +6,17 @@ export const StyledProduct = styled.button`
   flex-direction: column;
   position: relative;
   font-size: 1.2rem;
+  height: 100%;
   border: none;
   background-color: transparent;
+
+  &:hover {
+
+    div {
+      visibility: visible;
+    }
+
+  }
 
   img {
     object-fit: cover;
@@ -15,36 +24,40 @@ export const StyledProduct = styled.button`
     height: 300px;
     border: none;
   }
+`;
 
-  article {
-    background-color: ${(prop) => (prop.theme as ITheme).gray};
-    color: ${(prop) => (prop.theme as ITheme).TextColor};
-    padding: 16px;
-    gap: 8px;
-    display: flex;
-    flex-direction: column;
-    max-width: 280px;
+export const StyledProductArticle = styled.article`
+  background-color: ${(prop) => (prop.theme as ITheme).gray};
+  color: ${(prop) => (prop.theme as ITheme).TextColor};
+  padding: 16px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  max-width: 280px;
+  width: 100%;
+  text-align: start;
+
+  p {
+    color: ${(prop) => (prop.theme as ITheme).TextColor_md};
+    white-space: nowrap;
     width: 100%;
-    text-align: start;
+    overflow: hidden; /* "overflow" value must be different from "visible" */
 
+    text-overflow: ellipsis;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    
     p {
-      color: ${(prop) => (prop.theme as ITheme).TextColor_md};
+      color: ${(prop) => (prop.theme as ITheme).TextColor};
     }
 
-    div {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.5rem;
-
-      p {
-        color: ${(prop) => (prop.theme as ITheme).TextColor};
-        word-break: break-all;
-      }
-
-      p:nth-child(2) {
-        color: ${(prop) => (prop.theme as ITheme).TextColor_sm};
-        text-decoration: line-through;
-      }
+    p:nth-child(2) {
+      color: ${(prop) => (prop.theme as ITheme).TextColor_sm};
+      text-decoration: line-through;
     }
   }
-`;
+`

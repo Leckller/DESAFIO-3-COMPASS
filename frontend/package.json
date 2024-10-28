@@ -3,11 +3,10 @@
     "version": "1.0.0",
     "main": "./dist/main.js",
     "scripts": {
-        "start": "node .",
-        "vite": "vite",
+        "start": "vite",
+        "build": "tsc && vite build",
         "dev": "vite --open",
-        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "build": "tsc"
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^2.2.5",

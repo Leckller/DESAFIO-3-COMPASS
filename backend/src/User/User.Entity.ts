@@ -17,6 +17,9 @@ export default class UserEntity {
     @Column()
     password: string;
 
+    @Column({ default: false })
+    adm: boolean;
+
     @OneToMany(() => ItemEntity, (itemEntity) => itemEntity.user)
     car: ItemEntity[];
 

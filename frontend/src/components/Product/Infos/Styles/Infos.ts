@@ -21,3 +21,7 @@ export const StyledInfos = styled.section`
     padding: 8px;
   }
 `;
+
+export const StyledDescription = styled.p`
+  max-width: 424px;
+`;

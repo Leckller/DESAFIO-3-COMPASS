@@ -7,6 +7,7 @@ import { fetchProductsDetails } from '../Thunks/ProductDetailsThunk';
 import { IProductDetails } from '../../types/ProductDetails.Type';
 import { ISort } from '../../types/Sort.Type';
 import { fetchCategoryProducts } from '../Thunks/CategoryProductsThunk';
+import { SortProducts } from '../../Utils/Sort';
 
 interface ProductsState {
   // Objeto com vários produtos de diferentes categorias
@@ -31,24 +32,7 @@ export const ProductsSlice = createSlice({
   reducers: {
     sortProducts(state, action: PayloadAction<ISort>) {
       // Organiza os produtos de uma categoria definida
-      switch (action.payload) {
-        case 'lowest':
-          state.products = state.products
-            .sort((a, b) => a.price - b.price);
-          break;
-        case 'highest':
-          state.products = state.products
-            .sort((a, b) => b.price - a.price);
-          break;
-        case 'discount':
-          state.products = state.products
-            .sort((a, b) => b.discount_percent - a.discount_percent);
-          break;
-        case 'default':
-          break;
-        default:
-          break;
-      }
+      state.products = SortProducts(action.payload, state.products)
     },
   },
   extraReducers: (builder) => {
@@ -71,10 +55,10 @@ export const ProductsSlice = createSlice({
       })
       .addCase(
         fetchProducts.fulfilled,
-        (state, action) => {
+        (state, { payload: { count, products } }) => {
           state.loading = false;
-          state.products = action.payload.products;
-          state.countProducts = action.payload.count;
+          state.products = products;
+          state.countProducts = count;
         },
       );
 

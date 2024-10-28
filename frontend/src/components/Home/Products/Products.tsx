@@ -13,14 +13,19 @@ function Products({ products, more = '' }: { products: IProduct[], more?: string
       {products.length > 0 ? (
         <section>
           {products.map((product) => (
-            <Product product={ product } key={ product.id } />
+            <Product product={product} key={product.id} />
           ))}
         </section>
       ) : (
         <Empty />
       )}
       {more && (
-        <button onClick={ () => navigate(`/${more}`) }>
+        <button
+          onClick={() => {
+            navigate(`/${more}`);
+            window.scrollTo(0, 0);
+          }}
+        >
           Show More
         </button>
       )}

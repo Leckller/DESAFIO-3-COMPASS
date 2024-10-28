@@ -11,14 +11,15 @@ import { StyledShopMain } from './Styles/Shop';
 
 function Shop() {
   const { products } = useAppSelector((s) => s.Product);
+  const { sort } = useAppSelector((s) => s.Filter);
   const dispatch = useAppDispatch();
   const { category } = useParams();
 
   useEffect(() => {
     if (category) {
-      dispatch(fetchCategoryProducts({ category, page: 0, show: 8 }));
+      dispatch(fetchCategoryProducts({ category, page: 0, show: 16, sort }));
       return;
-    } dispatch(fetchProducts({ page: 0, show: 8 }));
+    } dispatch(fetchProducts({ page: 0, show: 16, sort }));
   }, []);
 
   return (
@@ -27,7 +28,7 @@ function Shop() {
       <Filter />
       <Products
         products={
-        products
+          products
         }
       />
       <Pages />

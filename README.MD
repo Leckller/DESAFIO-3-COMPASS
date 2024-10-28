@@ -25,6 +25,17 @@
 
   <h2>Como Rodar o Projeto</h2>
 
+  <h3>Docker</h3>
+  <ol>
+    <li>Acesse a pasta raiz:
+      <pre><code>Rode o comando: docker compose up --build</code></pre>
+    </li>
+    <li>Aguarde o backend iniciar, então:
+      <pre><code>Abra a url: http://localhost:3000/</code></pre>
+    </li>
+  </ol>
+
+
   <h3>Insomnia</h3>
   <ol>
     <li>Acesse a pasta raiz:

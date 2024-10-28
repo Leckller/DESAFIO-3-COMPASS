@@ -11,12 +11,12 @@ import { Entities, Modules } from 'src';
       secret: process.env.JWT_PASSWORD || "Ultra secreto",
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      database: process.env.POSTGRES_DB || 'furniro',
-      username: process.env.POSTGRES_USER || 'root',
-      password: process.env.POSTGRES_PASSWORD || 'password',
-      host: process.env.DB_HOST || "localhost",
-      port: +process.env.DB_PORT || 3307,
+      type: 'postgres',
+      database: process.env.DATABASE_NAME || 'furniro',
+      username: process.env.DATABASE_USER || 'postgres',
+      password: process.env.DATABASE_PASSWORD || 'postgres',
+      host: process.env.DATABASE_HOST || "localhost",
+      port: +process.env.DATABASE_PORT || 3000,
       synchronize: true,
       entities: [...Entities]
     }),
