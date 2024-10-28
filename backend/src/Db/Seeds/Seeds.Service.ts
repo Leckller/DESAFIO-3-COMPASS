@@ -325,15 +325,18 @@ export default class SeedsService {
     });
 
     // Users e Reviews
+    // await this.authService.encrypt("Flamengo123!");
+    // await this.authService.encrypt("#Bike123!");
+    // await this.authService.encrypt("Vasco123!");
 
     const userKayo = this.userRepo.create({
-      email: 'kayo@gmail.com', password: await this.authService.encrypt("Flamengo123!"), name: 'Kayo', adm: false,
+      email: 'kayo@gmail.com', password: "Flamengo123!", name: 'Kayo', adm: false,
     });
     const userFran = this.userRepo.create({
-      email: 'fran@gmail.com', password: await this.authService.encrypt("#Bike123!"), name: 'Fran', adm: true
+      email: 'fran@gmail.com', password: "#Bike123!", name: 'Fran', adm: true
     });
     const userMorghana = this.userRepo.create({
-      email: 'Morghana@gmail.com', password: await this.authService.encrypt("Vasco123!"), name: 'Morghana', adm: false,
+      email: 'Morghana@gmail.com', password: "Vasco123!", name: 'Morghana', adm: false,
     });
 
     await this.userRepo.save([userKayo, userFran, userMorghana]);

@@ -16,15 +16,18 @@ export default class AuthService {
 
     public async encrypt(text: string) {
 
-        const salt = await bcrypt.genSalt();
+        // const salt = await bcrypt.genSalt();
 
-        return await bcrypt.hash(text, salt)
+        // return await bcrypt.hash(text, salt)
+
+        return text;
 
     }
 
     public async compare(data: string, encrypted: string) {
 
-        if (!await bcrypt.compare(data, encrypted)) {
+        // if (!await bcrypt.compare(data, encrypted)) {
+        if (data !== encrypted) {
 
             throw new UnauthorizedException("Email ou senha inválidos")
 
