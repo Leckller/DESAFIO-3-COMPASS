@@ -7,7 +7,8 @@ export default class ImageEntity {
     id: number;
 
     @Column({
-        nullable: false
+        nullable: false,
+        length: 600
     })
     imageLink: string;
 
